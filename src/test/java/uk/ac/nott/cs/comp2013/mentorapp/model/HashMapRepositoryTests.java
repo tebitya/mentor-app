@@ -11,8 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import uk.ac.not.cs.comp2013.mentorapp.model.HasId;
-import uk.ac.not.cs.comp2013.mentorapp.model.HashMapRepository;
 
 public class HashMapRepositoryTests {
 

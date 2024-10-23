@@ -1,4 +1,4 @@
-package uk.ac.not.cs.comp2013.mentorapp;
+package uk.ac.nott.cs.comp2013.mentorapp;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

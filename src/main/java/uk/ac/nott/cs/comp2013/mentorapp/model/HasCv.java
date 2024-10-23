@@ -1,4 +1,4 @@
-package uk.ac.not.cs.comp2013.mentorapp.model;
+package uk.ac.nott.cs.comp2013.mentorapp.model;
 
 /**
  * Interface for any entity that can have a CV.
