@@ -16,16 +16,6 @@ public class Mentee implements User, HasCv {
   }
 
   @Override
-  public Integer getId() {
-    return id;
-  }
-
-  @Override
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  @Override
   public String getUsername() {
     return username;
   }

@@ -5,18 +5,8 @@ import java.time.LocalDateTime;
 public class Mentor implements User, HasAvailability {
 
   private int id;
-  private String username, password, cvText;
+  private String username, password;
   private LocalDateTime startAvailability, endAvailability;
-
-  @Override
-  public Integer getId() {
-    return id;
-  }
-
-  @Override
-  public void setId(Integer id) {
-    this.id = id;
-  }
 
   @Override
   public String getUsername() {

@@ -1,6 +1,7 @@
 package uk.ac.nott.cs.comp2013.mentorapp.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -52,6 +53,45 @@ public class HashMapRepositoryTests {
     Optional<Blob> b1 = data.selectById(1);
     assertTrue(b1.isPresent());
     assertEquals(b, b1.get());
+  }
+
+  @Test
+  public void testInsert_Fail() {
+    // arrange
+    data.insert(new Blob(1, 1));
+    // act
+    Blob b = data.insert(new Blob(1, 1));
+    // assert
+    assertNull(b);
+  }
+
+  @Test
+  public void testInsert_Succeed() {
+    // act
+    Blob b = data.insert(new Blob(1, 1));
+    // assert
+    assertEquals(new Blob(1, 1), b);
+  }
+
+  @Test
+  public void testUpdate_Fail() {
+    Blob b = data.update(new Blob(1, 1));
+    assertNull(b);
+  }
+
+  @Test
+  public void testUpdate_Succeed() {
+    data.insert(new Blob(1, 1));
+    Blob b = data.update(new Blob(1, 2));
+    assertEquals(1, b.getId());
+    assertEquals(2, b.getValue());
+  }
+
+  @Test
+  public void testDelete() {
+    data.insert(new Blob(1, 1));
+    data.delete(1);
+    assertTrue(data.selectById(1).isEmpty());
   }
 
 

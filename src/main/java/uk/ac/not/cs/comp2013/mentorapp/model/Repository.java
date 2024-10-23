@@ -9,7 +9,7 @@ import java.util.Optional;
  * @param <T>  type of entities in the repository
  * @param <Id> type used to uniquely identify entities
  */
-public interface Repository<T extends HasId<Id>, Id> {
+public interface Repository<T, Id> {
 
   /**
    * Obtain a list of all entities in the repository.

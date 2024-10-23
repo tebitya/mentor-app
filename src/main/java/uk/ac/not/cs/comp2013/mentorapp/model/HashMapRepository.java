@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class HashMapRepository<T extends HasId<Id>, Id> implements Repository<T, Id> {
 
-  private HashMap<Id, T> data = new HashMap<>();
+  private final HashMap<Id, T> data = new HashMap<>();
 
   @Override
   public List<T> selectAll() {
