@@ -57,4 +57,17 @@ public class Mentor implements User, HasAvailability {
   public void setEndAvailability(LocalDateTime date) {
     this.endAvailability = date;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Mentor m) {
+      return username.equals(m.username);
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return username.hashCode();
+  }
 }

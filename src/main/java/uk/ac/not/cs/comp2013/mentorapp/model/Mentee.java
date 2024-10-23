@@ -44,4 +44,17 @@ public class Mentee implements User, HasCv {
   public void setPassword(String password) {
     this.password = password;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Mentee m) {
+      return username.equals(m.username);
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return username.hashCode();
+  }
 }
