@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 group = "uk.ac.nott.cs.comp2013"
@@ -16,4 +17,9 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+javafx {
+    version = "22.0.1"
+    modules = listOf("javafx.controls", "javafx.fxml")
 }
