@@ -11,6 +11,22 @@ under `src/main/java` and tests go under `src/test/java`.
 
 ## Starting the coursework
 
-Fork this repository in the same way you did with first year
-Programming and Algorithms. You may modify any of the provided
-classes if you believe you need to do so.
+1. Fork this repository into your own user space, like you did
+   in PGA.
+2. In the IntelliJ launch window, instead of starting a new project
+   select "Get from VCS."
+3. Enter the URL of your personal repository and a Gitlab personal
+   access token in place of your password.
+4. When the project opens, verify that you can successfully build
+   the project.
+5. Start work!
+
+## Framework
+
+The provided code is there to help you get started. If you believe
+it is necessary you may modify or add to this structure, but you
+will need to justify this in the report.
+
+If you identify an actual bug somewhere in the provided code, you
+can raise an issue on the original repository and Ian will
+respond to it.

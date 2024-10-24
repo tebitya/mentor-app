@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import org.jetbrains.annotations.NotNull;
 
+/**
+ * A repository that uses a {@link HashMap} as a data source.
+ *
+ * @param <T>  type of stored elements
+ * @param <Id> type of elements' unique id
+ */
 public class HashMapRepository<T extends HasId<Id>, Id> implements Repository<T, Id> {
 
   private final HashMap<Id, T> data = new HashMap<>();
@@ -22,7 +27,7 @@ public class HashMapRepository<T extends HasId<Id>, Id> implements Repository<T,
   }
 
   @Override
-  public <S extends T> S insert(@NotNull S entity) {
+  public <S extends T> S insert(S entity) {
     if (data.containsKey(entity.getId())) {
       return null;
     }
@@ -32,7 +37,7 @@ public class HashMapRepository<T extends HasId<Id>, Id> implements Repository<T,
   }
 
   @Override
-  public <S extends T> S update(@NotNull S entity) {
+  public <S extends T> S update(S entity) {
     if (!data.containsKey(entity.getId())) {
       return null;
     }

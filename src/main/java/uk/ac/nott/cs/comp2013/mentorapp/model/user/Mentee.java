@@ -5,6 +5,16 @@ public class Mentee implements User, HasCv {
   private int id;
   private String username, password, cvText;
 
+  public Mentee(String username, String password) {
+    this(username, password, "");
+  }
+
+  public Mentee(String username, String password, String cvText) {
+    this.username = username;
+    this.password = password;
+    this.cvText = cvText;
+  }
+
   @Override
   public String getCvText() {
     return cvText;

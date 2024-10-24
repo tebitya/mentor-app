@@ -11,7 +11,7 @@ public interface HasAvailability {
 
   void setStartAvailability(LocalDateTime date);
 
-  LocalDateTime setEndAvailability();
+  LocalDateTime getEndAvailability();
 
   void setEndAvailability(LocalDateTime date);
 }

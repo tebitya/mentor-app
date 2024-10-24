@@ -8,6 +8,18 @@ public class Mentor implements User, HasAvailability {
   private String username, password;
   private LocalDateTime startAvailability, endAvailability;
 
+  public Mentor(String username, String password) {
+    this(username, password, null, null);
+  }
+
+  public Mentor(String username, String password, LocalDateTime startAvailability,
+      LocalDateTime endAvailability) {
+    this.username = username;
+    this.password = password;
+    this.startAvailability = startAvailability;
+    this.endAvailability = endAvailability;
+  }
+
   @Override
   public String getUsername() {
     return username;
@@ -39,7 +51,7 @@ public class Mentor implements User, HasAvailability {
   }
 
   @Override
-  public LocalDateTime setEndAvailability() {
+  public LocalDateTime getEndAvailability() {
     return endAvailability;
   }
 
