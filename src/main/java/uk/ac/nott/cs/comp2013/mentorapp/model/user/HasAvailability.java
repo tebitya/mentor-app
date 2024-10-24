@@ -1,4 +1,4 @@
-package uk.ac.nott.cs.comp2013.mentorapp.model;
+package uk.ac.nott.cs.comp2013.mentorapp.model.user;
 
 import java.time.LocalDateTime;
 

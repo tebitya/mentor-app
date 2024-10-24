@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 public class HashMapRepository<T extends HasId<Id>, Id> implements Repository<T, Id> {
 
@@ -21,7 +22,7 @@ public class HashMapRepository<T extends HasId<Id>, Id> implements Repository<T,
   }
 
   @Override
-  public <S extends T> S insert(S entity) {
+  public <S extends T> S insert(@NotNull S entity) {
     if (data.containsKey(entity.getId())) {
       return null;
     }
@@ -31,7 +32,7 @@ public class HashMapRepository<T extends HasId<Id>, Id> implements Repository<T,
   }
 
   @Override
-  public <S extends T> S update(S entity) {
+  public <S extends T> S update(@NotNull S entity) {
     if (!data.containsKey(entity.getId())) {
       return null;
     }

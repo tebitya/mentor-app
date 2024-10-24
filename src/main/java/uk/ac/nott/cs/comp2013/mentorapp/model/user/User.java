@@ -1,4 +1,6 @@
-package uk.ac.nott.cs.comp2013.mentorapp.model;
+package uk.ac.nott.cs.comp2013.mentorapp.model.user;
+
+import uk.ac.nott.cs.comp2013.mentorapp.model.HasId;
 
 /**
  * Base interface for any user of the system. Uses the username as id.
