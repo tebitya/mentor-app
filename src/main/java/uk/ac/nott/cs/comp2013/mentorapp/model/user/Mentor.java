@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Mentor implements User, HasAvailability {
 
-  private int id;
+  private UserRole role = UserRole.MENTOR;
   private String username, password;
   private LocalDateTime startAvailability, endAvailability;
 
@@ -58,6 +58,16 @@ public class Mentor implements User, HasAvailability {
   @Override
   public void setEndAvailability(LocalDateTime date) {
     this.endAvailability = date;
+  }
+
+  @Override
+  public UserRole getRole() {
+    return role;
+  }
+
+  @Override
+  public void setRole(UserRole role) {
+    this.role = role;
   }
 
   @Override

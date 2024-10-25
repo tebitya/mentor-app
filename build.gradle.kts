@@ -28,6 +28,11 @@ application {
     mainClass = "uk.ac.nott.cs.comp2013.MentorApp"
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 javafx {
     version = "22.0.1"
     modules = listOf("javafx.controls", "javafx.fxml")

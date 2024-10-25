@@ -2,7 +2,7 @@ package uk.ac.nott.cs.comp2013.mentorapp.model.user;
 
 public class Mentee implements User, HasCv {
 
-  private int id;
+  private UserRole role = UserRole.MENTEE;
   private String username, password, cvText;
 
   public Mentee(String username, String password) {
@@ -14,7 +14,6 @@ public class Mentee implements User, HasCv {
     this.password = password;
     this.cvText = cvText;
   }
-
   @Override
   public String getCvText() {
     return cvText;
@@ -43,6 +42,16 @@ public class Mentee implements User, HasCv {
   @Override
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  @Override
+  public UserRole getRole() {
+    return role;
+  }
+
+  @Override
+  public void setRole(UserRole role) {
+    this.role = role;
   }
 
   @Override

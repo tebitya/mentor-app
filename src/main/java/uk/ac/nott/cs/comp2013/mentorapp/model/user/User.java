@@ -15,6 +15,10 @@ public interface User extends HasId<String> {
     setUsername(id);
   }
 
+  UserRole getRole();
+
+  void setRole(UserRole role);
+
   String getUsername();
 
   void setUsername(String username);
