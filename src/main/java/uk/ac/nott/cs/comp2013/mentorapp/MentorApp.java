@@ -1,7 +1,11 @@
 package uk.ac.nott.cs.comp2013.mentorapp;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+import uk.ac.nott.cs.comp2013.mentorapp.controller.LoginController;
+import uk.ac.nott.cs.comp2013.mentorapp.model.HashMapRepository;
+import uk.ac.nott.cs.comp2013.mentorapp.view.LoginView;
 
 public class MentorApp extends Application {
 
@@ -11,7 +15,9 @@ public class MentorApp extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    // TODO: Create and set scene
+    LoginController controller = new LoginController(new HashMapRepository<>());
+    Scene s = new Scene(new LoginView(controller));
+    stage.setScene(s);
     stage.show();
   }
 }

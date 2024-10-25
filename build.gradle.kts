@@ -25,7 +25,7 @@ tasks.test {
 }
 
 application {
-    mainClass = "uk.ac.nott.cs.comp2013.MentorApp"
+    mainClass = "uk.ac.nott.cs.comp2013.mentorapp.MentorApp"
 }
 
 java {
