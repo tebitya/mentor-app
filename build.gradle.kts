@@ -11,6 +11,8 @@ repositories {
     mavenCentral()
 }
 
+val mockitoAgent = configurations.create("mockitoAgent")
+
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -18,10 +20,13 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("com.pholser:junit-quickcheck-core:1.0")
     testImplementation("com.pholser:junit-quickcheck-generators:1.0")
+    testImplementation("org.mockito:mockito-core:5.14.+")
+    mockitoAgent("org.mockito:mockito-core:5.14.+") { isTransitive = false }
 }
 
 tasks.test {
     useJUnitPlatform()
+    jvmArgs("-javaagent:${mockitoAgent.asPath}")
 }
 
 application {
