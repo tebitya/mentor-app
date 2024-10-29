@@ -4,8 +4,8 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"  # Disable the Gradle daemon for CI builds
 
 stages:
-  - build
   - test
+  - build
 
 cache:
   key: "$CI_COMMIT_REF_SLUG"
@@ -32,7 +32,7 @@ test:
     - ./gradlew test  # Run unit tests using Gradle
   artifacts:
     reports:
-      junit: build/test-results/test/  # Save test results in JUnit format
+      junit: build/test-results/**/*.xml  # Save test results in JUnit format
     paths:
       - build/reports/tests/test/  # Save the test reports
     expire_in: 1 week
