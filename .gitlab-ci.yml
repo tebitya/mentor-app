@@ -19,6 +19,8 @@ before_script:
 
 build:
   stage: build
+  tags:
+    - comp2013_2024_cwk_part2
   script:
     - ./gradlew clean build  # Build the project using Gradle
   artifacts:
@@ -28,6 +30,8 @@ build:
 
 test:
   stage: test
+  tags:
+    - comp2013_2024_cwk_part2
   script:
     - ./gradlew test  # Run unit tests using Gradle
   artifacts:
