@@ -33,11 +33,9 @@ public class ViewManager {
    * @param key unique key to identify the scene
    * @param s   view
    */
-  public void addView(String key, Parent s) {
+  public <T extends Parent & ManagedView> void addView(String key, T s) {
     scenes.put(key, s);
-    if (s instanceof ManagedView mv) {
-      mv.setOnViewChange(e -> setStageView(e.getView()));
-    }
+    s.setOnViewChange(e -> setStageView(e.getView()));
   }
 
   /**
