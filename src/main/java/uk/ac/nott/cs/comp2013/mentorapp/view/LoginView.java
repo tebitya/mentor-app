@@ -13,7 +13,6 @@ public class LoginView extends VBox implements ManagedView {
   private final LoginController controller;
   protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
   private TextField txtUsername, txtPassword;
-  private Button btnLogin;
 
   public LoginView(LoginController controller) {
     this.controller = controller;
@@ -24,13 +23,13 @@ public class LoginView extends VBox implements ManagedView {
   private void buildView() {
     txtUsername = new TextField();
     txtPassword = new TextField();
-    btnLogin = new Button("Login");
+    Button btnLogin = new Button("Login");
     btnLogin.setOnAction(e -> {
       boolean success = controller.onLoginClick(txtUsername.getText(), txtPassword.getText());
       if (success) {
         var eh = onViewChange.get();
         if (eh != null) {
-          onViewChange.get().handle(new ViewChangeEvent(ViewManager.DUMMY));
+          eh.handle(new ViewChangeEvent(ViewManager.DUMMY));
         }
       }
     });
