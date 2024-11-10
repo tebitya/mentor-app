@@ -8,10 +8,11 @@ import javafx.event.EventType;
  */
 public class ViewChangeEvent extends Event {
 
-  private String view;
+  private static final EventType<ViewChangeEvent> TYPE = new EventType<>("ViewChange");
+  private final String view;
 
   public ViewChangeEvent(String view) {
-    super(new EventType<>("ViewChange"));
+    super(TYPE);
     this.view = view;
   }
 
