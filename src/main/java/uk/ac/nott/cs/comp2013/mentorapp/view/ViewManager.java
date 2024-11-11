@@ -16,7 +16,7 @@ public class ViewManager {
   public static final String DUMMY = "dummy_view";
 
   private final Stage stage;
-  private final Map<String, Parent> scenes = new HashMap<>();
+  private final Map<String, Scene> scenes = new HashMap<>();
 
   /**
    * Construct a new manager.
@@ -30,12 +30,12 @@ public class ViewManager {
   /**
    * Add a new view to the manager.
    *
-   * @param key unique key to identify the scene
-   * @param s   view
+   * @param key  unique key to identify the scene
+   * @param view view to add
    */
-  public <T extends Parent & ManagedView> void addView(String key, T s) {
-    scenes.put(key, s);
-    s.setOnViewChange(e -> setStageView(e.getView()));
+  public <T extends Parent & ManagedView> void addView(String key, T view) {
+    view.setOnViewChange(e -> setStageView(e.getView()));
+    scenes.put(key, new Scene(view));
   }
 
   /**
@@ -49,7 +49,7 @@ public class ViewManager {
       return;
     }
 
-    Scene s = new Scene(scenes.get(key));
+    Scene s = scenes.get(key);
     stage.setScene(s);
   }
 

@@ -1,6 +1,5 @@
 package uk.ac.nott.cs.comp2013.mentorapp;
 
-import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -31,10 +30,10 @@ public class MentorApp extends Application {
   public void start(Stage stage) throws Exception {
     Repository<User, String> mockData = loadMockData();
 
-    ViewManager sm = new ViewManager(stage);
-    sm.addView(ViewManager.LOGIN, createLoginView(mockData));
+    ViewManager vm = new ViewManager(stage);
+    vm.addView(ViewManager.LOGIN, createLoginView(mockData));
 
-    sm.setStageView(ViewManager.LOGIN);
+    vm.setStageView(ViewManager.LOGIN);
     stage.show();
   }
 }

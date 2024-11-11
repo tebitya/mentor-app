@@ -25,7 +25,10 @@ public class LoginView extends VBox implements ManagedView {
     txtPassword = new TextField();
     Button btnLogin = new Button("Login");
     btnLogin.setOnAction(e -> {
+      System.out.println("btnLogin#onAction");
+      System.out.printf("username:%s, password:%s%n", txtUsername.getText(), txtPassword.getText());
       boolean success = controller.onLoginClick(txtUsername.getText(), txtPassword.getText());
+      System.out.printf("Login success: %s", success);
       if (success) {
         var eh = onViewChange.get();
         if (eh != null) {
