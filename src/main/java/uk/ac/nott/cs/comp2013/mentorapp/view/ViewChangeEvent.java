@@ -4,13 +4,18 @@ import javafx.event.Event;
 import javafx.event.EventType;
 
 /**
- * Event raised whenever a {@link ViewManager} should change the displayed view.
+ * A {@code ViewChangeEvent} is raised whenever a {@link ManagedView} wants to change view.
  */
 public class ViewChangeEvent extends Event {
 
   private static final EventType<ViewChangeEvent> TYPE = new EventType<>("ViewChange");
   private final String view;
 
+  /**
+   * Construct a new event.
+   *
+   * @param view string key of the view to change to
+   */
   public ViewChangeEvent(String view) {
     super(TYPE);
     this.view = view;

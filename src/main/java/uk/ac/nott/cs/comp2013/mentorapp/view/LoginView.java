@@ -8,6 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.LoginController;
 
+/**
+ * The {@code LoginView} provides a login screen for users to access the app. It also serves as a
+ * simple example of how to implement {@code ManagedView}. Note that this class extends {@code VBox}
+ * so that we can use JavaFX's built-in layout logic.
+ */
 public class LoginView extends VBox implements ManagedView {
 
   private final LoginController controller;
@@ -25,10 +30,7 @@ public class LoginView extends VBox implements ManagedView {
     txtPassword = new TextField();
     Button btnLogin = new Button("Login");
     btnLogin.setOnAction(e -> {
-      System.out.println("btnLogin#onAction");
-      System.out.printf("username:%s, password:%s%n", txtUsername.getText(), txtPassword.getText());
       boolean success = controller.onLoginClick(txtUsername.getText(), txtPassword.getText());
-      System.out.printf("Login success: %s", success);
       if (success) {
         var eh = onViewChange.get();
         if (eh != null) {

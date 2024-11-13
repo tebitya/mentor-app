@@ -10,6 +10,9 @@ import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
 import uk.ac.nott.cs.comp2013.mentorapp.view.LoginView;
 import uk.ac.nott.cs.comp2013.mentorapp.view.ViewManager;
 
+/**
+ * Main class for the entire mentor app.
+ */
 public class MentorApp extends Application {
 
   public static void main(String[] args) {

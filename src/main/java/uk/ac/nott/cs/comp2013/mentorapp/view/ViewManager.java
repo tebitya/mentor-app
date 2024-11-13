@@ -5,10 +5,29 @@ import java.util.Map;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import uk.ac.nott.cs.comp2013.mentorapp.MentorApp;
 
 /**
- * Manages the scenes available in the application and controls which scene is current presented in
- * the stage.
+ * <p>
+ * A {@code ViewManager} is responsible for changing the scene currently presented in an
+ * application's main stage. It is designed to work with implementations of {@link ManagedView} so
+ * that views can be changed without having to pass references to this class around.
+ * </p>
+ *
+ * <p>
+ * Views are added to the manager using the {@link #addView(String, Parent)} method. The first
+ * argument is a string used to identify the view, and the second argument is the view itself.  Note
+ * that the provided view must extend {@link javafx.scene.Parent} or one of its subclasses like
+ * {@code VBox}. The provided string can later be used to set the view using
+ * {@link #setStageView(String)}. It is best practice to use string constants for these view names,
+ * such as the provided {@link #LOGIN} and {@link #DUMMY} constants.
+ * </p>
+ *
+ * <p>
+ * An example of registering and setting a view is available in {@link MentorApp#start(Stage)}. You
+ * should not normally need to manually change view; instead, refer to {@code ManagedView} and the
+ * explanation for triggering view change events.
+ * </p>
  */
 public class ViewManager {
 
