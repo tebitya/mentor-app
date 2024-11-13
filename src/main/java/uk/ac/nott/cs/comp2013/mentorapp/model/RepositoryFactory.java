@@ -2,10 +2,12 @@ package uk.ac.nott.cs.comp2013.mentorapp.model;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Scanner;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.Administrator;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.Mentee;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.Mentor;
@@ -32,13 +34,19 @@ public class RepositoryFactory {
         throw new IOException(String.format("Failed to open csv file: %s", filename));
       }
 
-      Scanner fileScanner = new Scanner(data);
-      fileScanner.nextLine(); // skip header row
+      try (InputStreamReader reader = new InputStreamReader(data)) {
+        Iterable<CSVRecord> rows =
+            CSVFormat.EXCEL.builder()
+                .setHeader()
+                .setSkipHeaderRecord(true)
+                .build()
+                .parse(reader);
 
-      while (fileScanner.hasNextLine()) {
-        User user = scanUser(fileScanner.nextLine());
-        if (user != null) {
-          repo.insert(user);
+        for (CSVRecord row : rows) {
+          User user = userFromCsvRecord(row);
+          if (user != null) {
+            repo.insert(user);
+          }
         }
       }
     }
@@ -46,23 +54,23 @@ public class RepositoryFactory {
     return repo;
   }
 
-  private User scanUser(String row) {
-    String[] values = row.split(",");
-
-    return switch (values[2]) {
-      case "MENTEE" -> new Mentee(values[0], values[1], values[3]);
+  private User userFromCsvRecord(CSVRecord record) {
+    return switch (record.get("role")) {
+      case "MENTEE" ->
+          new Mentee(record.get("username"), record.get("password"), record.get("cvText"));
       case "MENTOR" -> {
-        if (values[4].isBlank() || values[5].isBlank()) {
-          yield new Mentor(values[0], values[1]);
+        Mentor m = new Mentor(record.get("username"), record.get("password"));
+        if (record.get("startAvailability").isBlank() || record.get("endAvailability").isBlank()) {
+          yield m;
         }
 
-        Instant start = Instant.parse(values[4]);
-        Instant end = Instant.parse(values[5]);
-        yield new Mentor(values[0], values[1],
-            LocalDateTime.ofInstant(start, ZoneId.systemDefault()),
-            LocalDateTime.ofInstant(end, ZoneId.systemDefault()));
+        Instant start = Instant.parse(record.get("startAvailability"));
+        Instant end = Instant.parse(record.get("endAvailability"));
+        m.setStartAvailability(LocalDateTime.ofInstant(start, ZoneId.systemDefault()));
+        m.setEndAvailability(LocalDateTime.ofInstant(end, ZoneId.systemDefault()));
+        yield m;
       }
-      case "ADMIN" -> new Administrator(values[0], values[1]);
+      case "ADMIN" -> new Administrator(record.get("username"), record.get("password"));
       default -> null;
     };
   }
