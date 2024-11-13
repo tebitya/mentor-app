@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Interface for any data repository.
+ * Interface for any data repository. Remember that any modifications to this interface will also
+ * need to be reflected in any concrete implementations.
  *
  * @param <T>  type of entities in the repository
  * @param <Id> type used to uniquely identify entities

@@ -11,6 +11,10 @@ import uk.ac.nott.cs.comp2013.mentorapp.model.user.Mentee;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.Mentor;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
 
+/**
+ * Factory class for creating various {@link Repository} implementations from different data
+ * sources.
+ */
 public class RepositoryFactory {
 
   /**
@@ -20,12 +24,12 @@ public class RepositoryFactory {
    * @return the repository
    * @throws IOException if there was an error reading the file
    */
-  public Repository<User, String> userRepositoryFromCsv(String filename) throws IOException {
+  public Repository<User, String> userHashMapRepository(String filename) throws IOException {
     Repository<User, String> repo = new HashMapRepository<>();
 
     try (InputStream data = RepositoryFactory.class.getResourceAsStream(filename)) {
       if (data == null) {
-        return null;
+        throw new IOException(String.format("Failed to open csv file: %s", filename));
       }
 
       Scanner fileScanner = new Scanner(data);

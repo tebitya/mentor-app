@@ -3,7 +3,7 @@ package uk.ac.nott.cs.comp2013.mentorapp.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -23,21 +23,21 @@ public class RepositoryFactoryTests {
   }
 
   @Test
-  public void testUserRepositoryCsvMissing() throws IOException {
-    Repository<User, String> repo = factory.userRepositoryFromCsv("/MISSING_DATA.csv");
-    assertNull(repo);
+  public void testUserRepositoryCsvMissing() {
+    assertThrows(IOException.class, () -> factory.userHashMapRepository("/MISSING_DATA.csv"),
+        "Missing data should have caused an exception");
   }
 
   @Test
   public void testUserRepositoryCsvPresent() throws IOException {
-    Repository<User, String> repo = factory.userRepositoryFromCsv("/TEST_DATA.csv");
-    assertNotNull(repo);
+    Repository<User, String> repo = factory.userHashMapRepository("/TEST_DATA.csv");
+    assertNotNull(repo, "Repository should have been created");
 
     Optional<User> user = repo.selectById("labarough0");
-    assertTrue(user.isPresent());
-    assertEquals("labarough0", user.get().getUsername());
-    assertEquals("gC9!dK+z!Fq$", user.get().getPassword());
-    assertInstanceOf(Mentee.class, user.get());
+    assertTrue(user.isPresent(), "User should have been found");
+    assertEquals("labarough0", user.get().getUsername(), "Username should be labarough0");
+    assertEquals("gC9!dK+z!Fq$", user.get().getPassword(), "Password should be gC9!dK+z!Fq$");
+    assertInstanceOf(Mentee.class, user.get(), "User should be a Mentee");
   }
 
 }

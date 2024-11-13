@@ -11,7 +11,8 @@ import uk.ac.nott.cs.comp2013.mentorapp.view.LoginView;
 import uk.ac.nott.cs.comp2013.mentorapp.view.ViewManager;
 
 /**
- * Main class for the entire mentor app.
+ * Main class for the entire mentor app. Remember to run the application using Gradle's {@code run}
+ * task rather than running the app through IntelliJ.
  */
 public class MentorApp extends Application {
 
@@ -20,8 +21,8 @@ public class MentorApp extends Application {
   }
 
   private Repository<User, String> loadMockData() throws IOException {
-    RepositoryFactory builder = new RepositoryFactory();
-    return builder.userRepositoryFromCsv("/MOCK_DATA.csv");
+    RepositoryFactory factory = new RepositoryFactory();
+    return factory.userHashMapRepository("/MOCK_DATA.csv");
   }
 
   private LoginView createLoginView(Repository<User, String> repo) {

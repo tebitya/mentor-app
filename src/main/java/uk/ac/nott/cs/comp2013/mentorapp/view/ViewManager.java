@@ -26,7 +26,9 @@ import uk.ac.nott.cs.comp2013.mentorapp.MentorApp;
  * <p>
  * An example of registering and setting a view is available in {@link MentorApp#start(Stage)}. You
  * should not normally need to manually change view; instead, refer to {@code ManagedView} and the
- * explanation for triggering view change events.
+ * explanation for triggering view change events. When a new view is added to a {@code ViewManager},
+ * that view's view change handler is automatically configured to trigger a view change when a view
+ * change event is raised.
  * </p>
  */
 public class ViewManager {
