@@ -35,6 +35,10 @@ public class ViewManager {
 
   public static final String LOGIN = "login_view";
   public static final String DUMMY = "dummy_view";
+  public static final String ACTORS_VIEW = "actors_view";
+  public static final String MENTEE_VIEW = "mentee_view";
+  public static final String MENTOR_VIEW = "mentor_view";
+  public static final String ADMIN_VIEW = "admin_view";
 
   private final Stage stage;
   private final Map<String, Scene> scenes = new HashMap<>();

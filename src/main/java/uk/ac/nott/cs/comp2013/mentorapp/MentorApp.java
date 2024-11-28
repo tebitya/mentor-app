@@ -3,12 +3,11 @@ package uk.ac.nott.cs.comp2013.mentorapp;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import uk.ac.nott.cs.comp2013.mentorapp.controller.LoginController;
+import uk.ac.nott.cs.comp2013.mentorapp.controller.*;
 import uk.ac.nott.cs.comp2013.mentorapp.model.Repository;
 import uk.ac.nott.cs.comp2013.mentorapp.model.RepositoryFactory;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
-import uk.ac.nott.cs.comp2013.mentorapp.view.LoginView;
-import uk.ac.nott.cs.comp2013.mentorapp.view.ViewManager;
+import uk.ac.nott.cs.comp2013.mentorapp.view.*;
 
 /**
  * Main class for the entire mentor app. Remember to run the application using Gradle's {@code run}
@@ -30,6 +29,26 @@ public class MentorApp extends Application {
     return new LoginView(controller);
   }
 
+  private ActorsView createActorsView() {
+    ActorsController controller = new ActorsController();
+    return new ActorsView(controller);
+  }
+
+  private MenteeView createMenteeView() {
+    MenteeController controller = new MenteeController();
+    return new MenteeView(controller);
+  }
+
+  private MentorView createMentorView() {
+    MentorController controller = new MentorController();
+    return new MentorView(controller);
+  }
+
+  private AdminView createAdminView() {
+    AdminController controller = new AdminController();
+    return new AdminView(controller);
+  }
+
   @Override
   public void start(Stage stage) throws Exception {
     Repository<User, String> mockData = loadMockData();
@@ -37,6 +56,14 @@ public class MentorApp extends Application {
     ViewManager vm = new ViewManager(stage);
     vm.addView(ViewManager.LOGIN, createLoginView(mockData));
 
+    /* Testing with actors view window */
+    vm.addView(ViewManager.ACTORS_VIEW, createActorsView());
+    vm.addView(ViewManager.MENTEE_VIEW, createMenteeView());
+    vm.addView(ViewManager.MENTOR_VIEW, createMentorView());
+    vm.addView(ViewManager.ADMIN_VIEW, createAdminView());
+
+    /* Set title to windows */
+    stage.setTitle("UoN Mentor App");
     vm.setStageView(ViewManager.LOGIN);
     stage.show();
   }

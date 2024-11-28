@@ -123,7 +123,7 @@ public class LoginView extends VBox implements ManagedView {
         var eh = onViewChange.get();
         if (eh != null) {
           /* Part to switch to new screen */
-          eh.handle(new ViewChangeEvent(ViewManager.DUMMY));
+          eh.handle(new ViewChangeEvent(ViewManager.ACTORS_VIEW));
         }
         /* Added 'else' condition for when login is not validated*/
       } else {
