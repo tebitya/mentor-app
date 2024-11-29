@@ -24,7 +24,7 @@ public class MentorView extends VBox implements ManagedView {
         setPadding(new Insets(50));
         /* To add more spacing between the separate interface elements */
         setSpacing(30);
-
+        setStyle("-fx-background-color: #FDFBF9;");
         Label dummyLabel = new Label("I will show you mentor UI");
         getChildren().add(dummyLabel);
     }

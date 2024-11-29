@@ -25,9 +25,11 @@ public class ActorsView extends VBox implements ManagedView {
         setPadding(new Insets(50));
         /* To add more spacing between the separate interface elements */
         setSpacing(30);
+        setStyle("-fx-background-color: #FDFBF9;");
 
-        Label dummyLabel = new Label("I will show you different roles");
-        getChildren().add(dummyLabel);
+        Label titleLbl = new Label("Select your Role");
+        titleLbl.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+        getChildren().add(titleLbl);
     }
 
     @Override

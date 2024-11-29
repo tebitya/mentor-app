@@ -60,7 +60,7 @@ public class LoginView extends VBox implements ManagedView {
       /* For when an exception may occur */
     } catch (NullPointerException e) {
       /* Printed during an error */
-      System.out.println("Image not found at /uon-logo.png");
+      System.out.println("Image not found");
     }
     /* If the logo has been successfully found */
     /* Using this try...catch method allows the page to be loaded without conflicts
