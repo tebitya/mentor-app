@@ -32,6 +32,7 @@ public class LoginView extends VBox implements ManagedView {
     this.onViewChange = new SimpleObjectProperty<>("onViewChange", null);
     /* Making the window larger */
     setPrefSize(900,700);
+    setMinSize(500,300);
     setStyle("-fx-background-color: #FDFBF8;");
     setAlignment(Pos.CENTER);
     setPadding(new Insets(50));
@@ -104,7 +105,7 @@ public class LoginView extends VBox implements ManagedView {
     /* Changing text in button to make it more similar to Moodle page */
     Button btnLogin = new Button("  Log in  ");
     /* Changing colour of button and text inside to make it more similar to Moodle login page*/
-    btnLogin.setStyle("-fx-background-color: #10263B;-fx-text-fill: white; -fx-font-size: 14px;");
+    btnLogin.setStyle("-fx-background-color: #10263B;-fx-text-fill: white; -fx-font-size: 16px;");
     btnLogin.setPadding(new Insets(10));
 
 
@@ -112,8 +113,17 @@ public class LoginView extends VBox implements ManagedView {
     Label invalidLogin = new Label();
     invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 14px;");
 
+    /* Adding create account link*/
+    Label createAccount = new Label("Register account");
+    createAccount.setStyle("-fx-text-fill: #516186; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+
+
+    /* Forgotten password link */
+    Label lostPassword = new Label("Lost password?");
+    lostPassword.setStyle("-fx-text-fill: #516186; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+
     /* Adding these labels to the screen*/
-    loginBox.getChildren().addAll(loginTitle,invalidLogin, txtUsername, txtPassword, btnLogin);
+    loginBox.getChildren().addAll(loginTitle,invalidLogin, txtUsername, txtPassword, btnLogin, createAccount, lostPassword);
     getChildren().addAll(loginBox);
 
     /* Once log in button is clicked */
