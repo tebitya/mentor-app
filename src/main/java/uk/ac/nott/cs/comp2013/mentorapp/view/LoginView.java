@@ -112,10 +112,31 @@ public class LoginView extends VBox implements ManagedView {
 
     /* Creation of label to be displayed if login is invalid */
     Label invalidLogin = new Label();
-    invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 14px;");
+    invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px;");
+
+    /* Link to create account */
+    Label createAccount = new Label("Register account");
+    createAccount.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+
+    /* Link to reset password */
+    Label resetPassword = new Label("Lost password?");
+    resetPassword.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+
+    /* Button to go back to role selection page */
+    Button rolePage = new Button("Back to Role Selection");
+    rolePage.setStyle("-fx-background-color: #CCCCCC; -fx-text-fill: black; -fx-font-size: 14px;");
+    rolePage.setPadding(new Insets(10));
+
+    /* Logic for going back to role page */
+    rolePage.setOnAction(e -> {
+      var eh = onViewChange.get();
+      if (eh != null) {
+        eh.handle(new ViewChangeEvent(ViewManager.ACTORS_VIEW));
+      }
+    });
 
     /* Adding these labels to the screen*/
-    loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin);
+    loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin, createAccount, resetPassword, rolePage);
     getChildren().addAll(loginBox);
 
     /* Once log in button is clicked */
