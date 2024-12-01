@@ -9,15 +9,26 @@ public class LoginController {
 
   private final Repository<User, String> repo;
   private static UserRole role;
+  private static UserRole selectedRole;
 
   public LoginController(Repository<User, String> model) {
     this.repo = model;
   }
 
   /* New getter to get the role of the user */
-  /* Used for the actorsveiw file */
+  /* Used for the actorsview file */
   public static UserRole getRole() {
     return role;
+  }
+
+  /* New function to store the selected role */
+  public static void setSelectedRole(UserRole role) {
+    selectedRole = role;
+  }
+
+  /* Function to retrieve selected role */
+  public static UserRole getSelectedRole() {
+    return selectedRole;
   }
 
   public boolean onLoginClick(String username, String password) {
@@ -31,7 +42,7 @@ public class LoginController {
     if(u.getUsername().equals(username) && u.getPassword().equals(password)){
       /* Role recorded once current user logs in */
       role = u.getRole();
-      return true;
+      return role == selectedRole;
     }
     return false;
   }

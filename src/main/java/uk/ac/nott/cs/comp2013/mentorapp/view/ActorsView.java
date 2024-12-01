@@ -58,29 +58,15 @@ public class ActorsView extends VBox implements ManagedView {
         getChildren().addAll(mentorBtn, menteeBtn, adminBtn);
     }
 
-    /* Function to check which role a user has */
+    /* Function to save the role the user selected */
     private void roleSelection(UserRole selectedRole) {
-        UserRole actualRole = LoginController.getRole();
+
         var eh = onViewChange.get();
 
         if (eh != null) {
-            /* Checking button clicked against actual role */
-            /* And based on this going to correct view */
-            if (selectedRole == actualRole) {
-                if (selectedRole == UserRole.ADMIN) {
-                    eh.handle(new ViewChangeEvent(ViewManager.ADMIN_VIEW));
-                } else if (selectedRole == UserRole.MENTOR) {
-                    eh.handle(new ViewChangeEvent(ViewManager.MENTOR_VIEW));
-                } else if (selectedRole == UserRole.MENTEE) {
-                    eh.handle(new ViewChangeEvent(ViewManager.MENTEE_VIEW));
-                }
-            } else {
-                /* New label for when incorrect role is selected */
-                Label accessDenied = new Label("Access denied. Incorrect role selected.");
-                /* Similar styling to Moodle error messages */
-                accessDenied.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 14px;");
-                getChildren().add(accessDenied);
-            }
+            LoginController.setSelectedRole(selectedRole);
+            /* Navigates user to login page */
+            eh.handle(new ViewChangeEvent(ViewManager.LOGIN));
         }
     }
 
