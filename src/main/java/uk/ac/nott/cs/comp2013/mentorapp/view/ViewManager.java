@@ -34,7 +34,7 @@ import uk.ac.nott.cs.comp2013.mentorapp.MentorApp;
 public class ViewManager {
 
   public static final String LOGIN = "login_view";
-  public static final String DUMMY = "dummy_view";
+  /* Adding the new screens */
   public static final String ACTORS_VIEW = "actors_view";
   public static final String MENTEE_VIEW = "mentee_view";
   public static final String MENTOR_VIEW = "mentor_view";

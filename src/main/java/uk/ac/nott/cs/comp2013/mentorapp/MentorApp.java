@@ -64,7 +64,8 @@ public class MentorApp extends Application {
 
     /* Set title to windows */
     stage.setTitle("UoN Mentor App");
-    vm.setStageView(ViewManager.LOGIN);
+    /* Changed to have the role selection screen first */
+    vm.setStageView(ViewManager.ACTORS_VIEW);
     stage.show();
   }
 }

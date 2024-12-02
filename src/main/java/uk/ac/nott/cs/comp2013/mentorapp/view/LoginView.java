@@ -13,6 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.LoginController;
+import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
+import uk.ac.nott.cs.comp2013.mentorapp.model.user.UserRole;
 
 import java.util.Objects;
 
@@ -61,7 +63,7 @@ public class LoginView extends VBox implements ManagedView {
       /* For when an exception may occur */
     } catch (NullPointerException e) {
       /* Printed during an error */
-      System.out.println("Image not found at /uon-logo.png");
+      System.out.println("Image not found");
     }
     /* If the logo has been successfully found */
     /* Using this try...catch method allows the page to be loaded without conflicts
@@ -111,7 +113,28 @@ public class LoginView extends VBox implements ManagedView {
 
     /* Creation of label to be displayed if login is invalid */
     Label invalidLogin = new Label();
-    invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 14px;");
+    invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px;");
+
+    /* Link to create account */
+    Label createAccount = new Label("Register account");
+    createAccount.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+
+    /* Link to reset password */
+    Label resetPassword = new Label("Lost password?");
+    resetPassword.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+
+    /* Button to go back to role selection page */
+    Button rolePage = new Button("Back to Role Selection");
+    rolePage.setStyle("-fx-background-color: #CCCCCC; -fx-text-fill: black; -fx-font-size: 14px;");
+    rolePage.setPadding(new Insets(10));
+
+    /* Logic for going back to role page */
+    rolePage.setOnAction(e -> {
+      var eh = onViewChange.get();
+      if (eh != null) {
+        eh.handle(new ViewChangeEvent(ViewManager.ACTORS_VIEW));
+      }
+    });
 
     /* Adding create account link*/
     Label createAccount = new Label("Register account");
@@ -123,26 +146,33 @@ public class LoginView extends VBox implements ManagedView {
     lostPassword.setStyle("-fx-text-fill: #516186; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
 
     /* Adding these labels to the screen*/
-    loginBox.getChildren().addAll(loginTitle,invalidLogin, txtUsername, txtPassword, btnLogin, createAccount, lostPassword);
+    loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin, createAccount, resetPassword, rolePage);
     getChildren().addAll(loginBox);
 
     /* Once log in button is clicked */
     btnLogin.setOnAction(e -> {
       boolean success = controller.onLoginClick(txtUsername.getText(), txtPassword.getText());
+      UserRole role = LoginController.getSelectedRole();
+      var eh = onViewChange.get();
       if (success) {
-        var eh = onViewChange.get();
+        System.out.println("here");
         if (eh != null) {
-          /* Part to switch to new screen */
-          eh.handle(new ViewChangeEvent(ViewManager.ACTORS_VIEW));
+          if (role == UserRole.ADMIN) {
+            eh.handle(new ViewChangeEvent(ViewManager.ADMIN_VIEW));
+          } else if (role == UserRole.MENTOR) {
+            eh.handle(new ViewChangeEvent(ViewManager.MENTOR_VIEW));
+          } else if (role == UserRole.MENTEE) {
+            eh.handle(new ViewChangeEvent(ViewManager.MENTEE_VIEW));
+          }
         }
-        /* Added 'else' condition for when login is not validated*/
+          /* Added 'else' condition for when login is not validated*/
       } else {
-        invalidLogin.setText("  Invalid login, please try again  ");
-        invalidLogin.setMaxWidth(400);
-        invalidLogin.setPadding(new Insets(10));
+          invalidLogin.setText("  Invalid login or incorrect role. Please try again.  ");
+          invalidLogin.setMaxWidth(400);
+          invalidLogin.setPadding(new Insets(10));
       }
-    });
 
+    });
   }
 
   @Override

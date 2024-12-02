@@ -44,4 +44,18 @@ public class LoginControllerTests {
     assertTrue(loginResult);
   }
 
+  /* 1. Test for when no input is provided for the username field */
+  @Test
+  public void testLoginClickNoUsername() {
+    boolean loginResult = controller.onLoginClick("", "password");
+    assertFalse(loginResult);
+  }
+
+  /* 2. Test for when no input is provided for the password field */
+  @Test
+  public void testLoginClickNoPassword() {
+    boolean loginResult = controller.onLoginClick("user", "");
+    assertFalse(loginResult);
+  }
+
 }
