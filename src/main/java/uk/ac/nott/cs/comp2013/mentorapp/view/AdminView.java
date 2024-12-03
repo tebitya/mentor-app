@@ -1,8 +1,11 @@
 package uk.ac.nott.cs.comp2013.mentorapp.view;
 
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -12,20 +15,42 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.AdminController;
 
+import java.util.List;
 import java.util.Objects;
 
 public class AdminView extends VBox implements ManagedView {
 
-    // Property to handle view changes
+    /* Property to handle view changes */
     protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
 
+    /* Drop downs to display mentee and mentor names */
+    private final ComboBox<String> menteeList = new ComboBox<>();
+    private final ComboBox<String> mentorList = new ComboBox<>();
+    private final AdminController controller;
+
+
     public AdminView(AdminController controller) {
+        this.controller = controller;
         this.onViewChange = new SimpleObjectProperty<>("onViewChange", null);
 
         /* Making the window larger */
         setPrefSize(900,700);
 
         buildView();
+
+        loadDropdownData();
+    }
+
+    private void loadDropdownData() {
+        /* Getting the list from the method in admin controller */
+        List<String> mentees = controller.listAllMentees();
+        /* Setting it to be visible as individual items from array */
+        menteeList.setItems(FXCollections.observableArrayList(mentees));
+
+        /* Doing the same for the mentor data */
+        List<String> mentors = controller.listAllMentors();
+        /* Setting it to be visible as individual items from array */
+        mentorList.setItems(FXCollections.observableArrayList(mentors));
     }
 
     private void buildView() {
@@ -97,13 +122,55 @@ public class AdminView extends VBox implements ManagedView {
         welcome.setStyle("-fx-font-size: 24px; -fx-text-fill: #10263B; -fx-font-weight: bold;");
         welcome.setPadding(new Insets(20));
 
+        ///////////////////////////////////////////////////////////////
+        /* This part is for displaying the mentors and mentees */
+
+        /* New hbox just for displaying dropdown boxex for usernames */
+        /* As well as confirming 'pair' button */
+        HBox pairingRow = new HBox(10);
+        /* Put in centre as is admin's main interaction with the page */
+        pairingRow.setAlignment(Pos.CENTER);
+        pairingRow.setPadding(new Insets(20));
+
+        /* To display mentee data */
+        Label menteeLbl = new Label("Mentee");
+        menteeLbl.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        menteeList.setPromptText("Select a Mentee");
+        menteeList.setStyle("-fx-font-size: 16px;");
+
+        /* To display mentor data */
+        Label mentorLbl = new Label("Mentor");
+        mentorLbl.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        mentorList.setPromptText("Select a Mentor");
+        mentorList.setStyle("-fx-font-size: 16px;");
+
+        Button pairBtn = new Button("Pair");
+        pairBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-padding: 8; -fx-cursor: hand;;");
+        pairBtn.setOnAction(e -> handlePairBtnClick());
+
+        /* Adding individual components to main hbox */
+        pairingRow.getChildren().addAll(menteeLbl, menteeList, mentorLbl, mentorList, pairBtn);
 
         /* Adding all individual hbox to main navigation one */
         navBar.getChildren().addAll(linksBox, iconsBox);
 
         /* Adding main hbox to page */
-        getChildren().addAll(navBar, welcome);
+        getChildren().addAll(navBar, welcome, pairingRow);
     }
+
+    private void handlePairBtnClick() {
+        /* Function that occurs once admin has pressed the button labelled 'pair' */
+        String selectedMentee = menteeList.getValue();
+        String selectedMentor = mentorList.getValue();
+
+        if (selectedMentee == null || selectedMentor == null) {
+            System.out.println("Please select both a mentee and a mentor.");
+        } else {
+            System.out.println("Pairing " + selectedMentee + " with " + selectedMentor);
+
+        }
+    }
+
 
     private Label createLinkLabel(String page){
         /* Generic as of now so can be applied to all three */
@@ -117,7 +184,7 @@ public class AdminView extends VBox implements ManagedView {
         label.setOnMouseExited(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #FDFBF9; -fx-font-size: 16px; -fx-text-fill: #405162; -fx-cursor: hand;"));
 
         /* LOGIC TO BE IMPLEMENTED LATER */
-        /* FOR NOW BARE BONES */
+        /* FOR NOW BARE-BONES */
         /* Logic only for logout page */
         /* Leads directly back to login page */
         label.setOnMouseClicked(e -> {

@@ -44,8 +44,8 @@ public class MentorApp extends Application {
     return new MentorView(controller);
   }
 
-  private AdminView createAdminView() {
-    AdminController controller = new AdminController();
+  private AdminView createAdminView(Repository<User, String> repo){
+    AdminController controller = new AdminController(repo);
     return new AdminView(controller);
   }
 
@@ -60,7 +60,7 @@ public class MentorApp extends Application {
     vm.addView(ViewManager.ACTORS_VIEW, createActorsView());
     vm.addView(ViewManager.MENTEE_VIEW, createMenteeView());
     vm.addView(ViewManager.MENTOR_VIEW, createMentorView());
-    vm.addView(ViewManager.ADMIN_VIEW, createAdminView());
+    vm.addView(ViewManager.ADMIN_VIEW, createAdminView(mockData));
 
     /* Set title to windows */
     stage.setTitle("UoN Mentor App");
@@ -68,4 +68,5 @@ public class MentorApp extends Application {
     vm.setStageView(ViewManager.ACTORS_VIEW);
     stage.show();
   }
+
 }
