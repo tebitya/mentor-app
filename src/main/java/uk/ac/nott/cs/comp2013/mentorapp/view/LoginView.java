@@ -139,15 +139,6 @@ public class LoginView extends VBox implements ManagedView {
       }
     });
 
-    /* Adding create account link*/
-    Label createAccount = new Label("Register account");
-    createAccount.setStyle("-fx-text-fill: #516186; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
-
-
-    /* Forgotten password link */
-    Label lostPassword = new Label("Lost password?");
-    lostPassword.setStyle("-fx-text-fill: #516186; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
-
     /* Adding these labels to the screen*/
     loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin, resetPassword, createAccount, separator, rolePage);
     getChildren().addAll(loginBox);
