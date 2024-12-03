@@ -5,10 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -122,6 +119,12 @@ public class LoginView extends VBox implements ManagedView {
     Label resetPassword = new Label("Lost password?");
     resetPassword.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
 
+    /* Using a separator as is seen on Moodle page */
+    Separator separator = new Separator();
+    separator.setStyle("-fx-background-color: #CCCCCC;");
+    separator.setMaxWidth(600);
+    separator.setPrefHeight(0.5);
+
     /* Button to go back to role selection page */
     Button rolePage = new Button("Back to Role Selection");
     rolePage.setStyle("-fx-background-color: #CCCCCC; -fx-text-fill: black; -fx-font-size: 14px;");
@@ -136,7 +139,7 @@ public class LoginView extends VBox implements ManagedView {
     });
 
     /* Adding these labels to the screen*/
-    loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin, createAccount, resetPassword, rolePage);
+    loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin, resetPassword, createAccount, separator, rolePage);
     getChildren().addAll(loginBox);
 
     /* Once log in button is clicked */
