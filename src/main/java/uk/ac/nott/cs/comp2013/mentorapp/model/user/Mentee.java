@@ -4,16 +4,34 @@ public class Mentee implements User, HasCv {
 
   private UserRole role = UserRole.MENTEE;
   private String username, password, cvText;
+  /* year group is int */
+  private int yearGroup;
 
-  public Mentee(String username, String password) {
-    this(username, password, "");
+  public Mentee(String username, String password, int yearGroup) {
+    this(username, password, "", yearGroup);
   }
 
-  public Mentee(String username, String password, String cvText) {
+  public Mentee(String username, String password, String cvText, int yearGroup) {
     this.username = username;
     this.password = password;
     this.cvText = cvText;
+    /* Adding year group column to ensure that there is no in-year mentoring */
+    /* All mentors must be older by at least a year than their mentee */
+    this.yearGroup = yearGroup;
   }
+
+  /* getter */
+  @Override
+  public int getYearGroup() {
+    return yearGroup;
+  }
+
+  /* setter */
+  @Override
+  public void setYearGroup(int yearGroup) {
+    this.yearGroup = yearGroup;
+  }
+
   @Override
   public String getCvText() {
     return cvText;

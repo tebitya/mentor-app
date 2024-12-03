@@ -19,6 +19,12 @@ public interface User extends HasId<String> {
 
   void setRole(UserRole role);
 
+  /* getters and setters for the yearGroup column */
+
+  int getYearGroup();
+
+  void setYearGroup(int yearGroup);
+
   String getUsername();
 
   void setUsername(String username);
