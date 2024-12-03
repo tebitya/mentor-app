@@ -7,32 +7,18 @@ public class Mentor implements User, HasAvailability {
   private UserRole role = UserRole.MENTOR;
   private String username, password;
   private LocalDateTime startAvailability, endAvailability;
-  private int yearGroup;
 
-  public Mentor(String username, String password, int yearGroup) {
-    this(username, password, null, null, yearGroup);
+  public Mentor(String username, String password) {
+    this(username, password, null, null);
   }
 
   public Mentor(String username, String password, LocalDateTime startAvailability,
-      LocalDateTime endAvailability, int yearGroup) {
+      LocalDateTime endAvailability) {
     this.username = username;
     this.password = password;
     this.startAvailability = startAvailability;
     this.endAvailability = endAvailability;
-    this.yearGroup = yearGroup;
   }
-
-  /* Adding getters and setters for year group here as well */
-  @Override
-  public int getYearGroup() {
-    return yearGroup;
-  }
-
-  @Override
-  public void setYearGroup(int yearGroup) {
-    this.yearGroup = yearGroup;
-  }
-  
 
   @Override
   public String getUsername() {
