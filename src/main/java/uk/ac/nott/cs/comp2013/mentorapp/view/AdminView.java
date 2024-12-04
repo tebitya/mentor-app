@@ -130,6 +130,7 @@ public class AdminView extends VBox implements ManagedView {
 
         /* New hbox just for displaying dropdown boxex for usernames */
         /* As well as confirming 'pair' button */
+        VBox pairingSection = new VBox(10);
         HBox pairingRow = new HBox(10);
         /* Put in centre as is admin's main interaction with the page */
         pairingRow.setAlignment(Pos.CENTER);
@@ -180,9 +181,17 @@ public class AdminView extends VBox implements ManagedView {
         /* Setting the height of the table */
         pairsTable.setPrefHeight(200);
 
+        /* Button needed for admin to confirm their final selection */
+        Button confirmBtn = new Button("Confirm");
+        confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-padding: 8; -fx-cursor: hand;;");
+        /* CREATE NEW FUNCTION WHAT HAPPENS ONCE BUTTON CLICKED */
+
+        /* Adding all parts of pairing interface to the VBox */
+        pairingSection.getChildren().addAll(pairingRow, pairsTable, confirmBtn);
+        pairingSection.setAlignment(Pos.CENTER);
 
         /* Adding main hbox to page */
-        getChildren().addAll(navBar, welcome, pairingRow, pairsTable);
+        getChildren().addAll(navBar, welcome,pairingSection);
     }
 
     private void handlePairBtnClick() {
