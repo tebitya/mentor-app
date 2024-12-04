@@ -20,8 +20,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 
@@ -135,7 +133,7 @@ public class AdminView extends VBox implements ManagedView {
         ///////////////////////////////////////////////////////////////
         /* This part is for displaying the mentors and mentees */
 
-        /* New hbox just for displaying dropdown boxex for usernames */
+        /* New hbox just for displaying dropdown boxes for usernames */
         /* As well as confirming 'pair' button */
         VBox pairingSection = new VBox(10);
         HBox pairingRow = new HBox(10);
@@ -240,15 +238,24 @@ public class AdminView extends VBox implements ManagedView {
         /* Creating the new file in specified location */
         String directoryPath = "src/main/pairing";
         /* Choosing name of file */
-        String filePath = directoryPath + "/test.csv";
+        String filePath = directoryPath + "/confirmed-pairs.csv";
 
         /* Creating the new file */
         File file = new File(filePath);
         /* Testing first with simple message */
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write("hello");
+            writer.write("Mentee, Mentor");
+            writer.newLine();
+            /* Looping through the pairs admin selected */
+            for (Pair<String, String> pair : pairsResults) {
+                writer.write(pair.getKey() + "," + pair.getValue());
+                /* New line after each pair for readability */
+                writer.newLine();
+            }
+            int totalPairs = pairsResults.size();
+            writer.write("Total number of pairs: " + totalPairs);
+            writer.newLine();
 
-            System.out.println("CSV file created and hello written inside.");
         } catch (IOException e) {
             e.printStackTrace();
         }
