@@ -16,6 +16,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.util.Pair;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.AdminController;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 
@@ -201,7 +207,7 @@ public class AdminView extends VBox implements ManagedView {
         confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white;-fx-cursor: hand;;");
         confirmBtn.setPrefWidth(100);
         /* CREATE NEW FUNCTION WHAT HAPPENS ONCE BUTTON CLICKED */
-
+        confirmBtn.setOnAction(e -> handleConfirmBtnClick());
 
         /* Adding all parts of pairing interface to the VBox */
         pairingSection.getChildren().addAll(pairingRow, scrollBar, confirmBtn);
@@ -211,6 +217,41 @@ public class AdminView extends VBox implements ManagedView {
 
         /* Adding main hbox to page */
         getChildren().addAll(navBar, welcome,pairingSection);
+    }
+
+    private void handleConfirmBtnClick() {
+        Label confirmationLbl = new Label("Pairing confirmed. Notifications will be sent to selected mentees and mentors.");
+        /* Similar styling to error messages */
+        confirmationLbl.setStyle("-fx-background-color: #D4EDDA; -fx-text-fill: #155724; -fx-font-size: 16px;");
+        confirmationLbl.setPadding(new Insets(10));
+        confirmationLbl.setAlignment(Pos.CENTER);
+        /* To cover entire width of window */
+        confirmationLbl.setMaxWidth(900);
+        /* Adding message to the page */
+        getChildren().add(confirmationLbl);
+
+
+        writePairsToCSV();
+
+    }
+
+    private void writePairsToCSV() {
+        /* Function to permanently record the pairs made into a csv file */
+        /* Creating the new file in specified location */
+        String directoryPath = "src/main/pairing";
+        /* Choosing name of file */
+        String filePath = directoryPath + "/test.csv";
+
+        /* Creating the new file */
+        File file = new File(filePath);
+        /* Testing first with simple message */
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write("hello");
+
+            System.out.println("CSV file created and hello written inside.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handlePairBtnClick() {
