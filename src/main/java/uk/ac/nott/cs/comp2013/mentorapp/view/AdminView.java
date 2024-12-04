@@ -179,7 +179,7 @@ public class AdminView extends VBox implements ManagedView {
         pairsTable.getColumns().addAll(menteeColumn, mentorColumn);
         pairsTable.setItems(pairsResults);
         /* Setting the height of the table */
-        pairsTable.setPrefHeight(200);
+        pairsTable.setPrefHeight(400);
 
         /* Button needed for admin to confirm their final selection */
         Button confirmBtn = new Button("Confirm");
@@ -201,10 +201,22 @@ public class AdminView extends VBox implements ManagedView {
 
         if (selectedMentee == null || selectedMentor == null) {
             System.out.println("Select both a mentee and a mentor.");
-        } else {
-            System.out.println("Pairing " + selectedMentee + " with " + selectedMentor);
-
         }
+
+        /* Adding the pair */
+        controller.addPair(selectedMentee, selectedMentor);
+        /* Adding it to the table now */
+        pairsResults.add(new Pair<>(selectedMentee, selectedMentor));
+
+        /* !! Removing selected mentors & mentees from drop-down once they have been selected */
+        menteeList.getItems().remove(selectedMentee);
+        mentorList.getItems().remove(selectedMentor);
+
+        /* Resetting drop-down boxes for next selection */
+        menteeList.setValue(null);
+        mentorList.setValue(null);
+
+        System.out.println("Pairing " + selectedMentee + " with " + selectedMentor);
     }
 
 
