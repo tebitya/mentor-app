@@ -173,7 +173,7 @@ public class AdminView extends VBox implements ManagedView {
         /* Doing the same for the mentor */
         TableColumn<Pair< String, String>, String> mentorColumn = new TableColumn <> ("Mentor");
         /* To display the string value - the mentee names */
-        mentorColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getKey()));
+        mentorColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getValue()));
 
         /* Adding these two columns to the table */
         pairsTable.getColumns().addAll(menteeColumn, mentorColumn);
