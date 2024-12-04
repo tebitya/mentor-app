@@ -1,18 +1,19 @@
 package uk.ac.nott.cs.comp2013.mentorapp.view;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.util.Pair;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.AdminController;
 
 import java.util.List;
@@ -23,9 +24,11 @@ public class AdminView extends VBox implements ManagedView {
     /* Property to handle view changes */
     protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
 
-    /* Drop downs to display mentee and mentor names */
+    /* Drop-downs to display mentee and mentor names */
     private final ComboBox<String> menteeList = new ComboBox<>();
     private final ComboBox<String> mentorList = new ComboBox<>();
+    private final TableView<Pair<String, String>> pairsTable = new TableView<>();
+    private final ObservableList<Pair<String, String>> pairsResults = FXCollections.observableArrayList();
     private final AdminController controller;
 
 
@@ -144,6 +147,7 @@ public class AdminView extends VBox implements ManagedView {
         mentorList.setPromptText("Select a Mentor");
         mentorList.setStyle("-fx-font-size: 16px;");
 
+        /* Button for user to click to confirm the current pair */
         Button pairBtn = new Button("Pair");
         pairBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-padding: 8; -fx-cursor: hand;;");
         pairBtn.setOnAction(e -> handlePairBtnClick());
@@ -154,8 +158,31 @@ public class AdminView extends VBox implements ManagedView {
         /* Adding all individual hbox to main navigation one */
         navBar.getChildren().addAll(linksBox, iconsBox);
 
+
+        ///////////////////////////////////////////////////////
+        /* Adding the table on the page to display the pairs */
+        pairsTable.setEditable(false);
+        pairsTable.setPlaceholder(new Label("No pairs selected yet."));
+
+        /* Adding the columns to the table */
+        TableColumn<Pair< String, String>, String> menteeColumn = new TableColumn <> ("Mentee");
+        /* To display the string value - the mentee names */
+        menteeColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getKey()));
+
+        /* Doing the same for the mentor */
+        TableColumn<Pair< String, String>, String> mentorColumn = new TableColumn <> ("Mentor");
+        /* To display the string value - the mentee names */
+        mentorColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getKey()));
+
+        /* Adding these two columns to the table */
+        pairsTable.getColumns().addAll(menteeColumn, mentorColumn);
+        pairsTable.setItems(pairsResults);
+        /* Setting the height of the table */
+        pairsTable.setPrefHeight(200);
+
+
         /* Adding main hbox to page */
-        getChildren().addAll(navBar, welcome, pairingRow);
+        getChildren().addAll(navBar, welcome, pairingRow, pairsTable);
     }
 
     private void handlePairBtnClick() {
@@ -164,7 +191,7 @@ public class AdminView extends VBox implements ManagedView {
         String selectedMentor = mentorList.getValue();
 
         if (selectedMentee == null || selectedMentor == null) {
-            System.out.println("Please select both a mentee and a mentor.");
+            System.out.println("Select both a mentee and a mentor.");
         } else {
             System.out.println("Pairing " + selectedMentee + " with " + selectedMentor);
 

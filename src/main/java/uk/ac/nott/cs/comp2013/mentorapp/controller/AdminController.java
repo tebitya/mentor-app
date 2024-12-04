@@ -61,6 +61,12 @@ public class AdminController {
 
     /* Now move onto specifics in use case */
     /* Adding the pair created */
+    public void addPair(String mentee, String mentor){
+        selectedPairs.add(new Pair<>(mentee, mentor));
+    }
 
+    public List<Pair<String, String>> getSelectedPairs(){
+        return selectedPairs;
+    }
 
 }
