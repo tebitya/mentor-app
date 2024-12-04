@@ -162,6 +162,7 @@ public class AdminView extends VBox implements ManagedView {
 
         ///////////////////////////////////////////////////////
         /* Adding the table on the page to display the pairs */
+        /* To fix issue of small columns */
         pairsTable.setEditable(false);
         pairsTable.setPlaceholder(new Label("No pairs selected yet."));
 
@@ -175,20 +176,30 @@ public class AdminView extends VBox implements ManagedView {
         /* To display the string value - the mentee names */
         mentorColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getValue()));
 
+        /*To make each column the width of 50% of table */
+        menteeColumn.prefWidthProperty().bind(pairsTable.widthProperty().multiply(0.5));
+        mentorColumn.prefWidthProperty().bind(pairsTable.widthProperty().multiply(0.5));
+
         /* Adding these two columns to the table */
         pairsTable.getColumns().addAll(menteeColumn, mentorColumn);
         pairsTable.setItems(pairsResults);
+        /* Increasing size for improved readability */
+        pairsTable.setStyle("-fx-font-size: 16px;");
         /* Setting the height of the table */
-        pairsTable.setPrefHeight(400);
+
+
 
         /* Button needed for admin to confirm their final selection */
         Button confirmBtn = new Button("Confirm");
         confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-padding: 8; -fx-cursor: hand;;");
         /* CREATE NEW FUNCTION WHAT HAPPENS ONCE BUTTON CLICKED */
 
+
         /* Adding all parts of pairing interface to the VBox */
         pairingSection.getChildren().addAll(pairingRow, pairsTable, confirmBtn);
         pairingSection.setAlignment(Pos.CENTER);
+        pairingSection.setPadding(new Insets(20));
+        pairingSection.setPrefWidth(600);
 
         /* Adding main hbox to page */
         getChildren().addAll(navBar, welcome,pairingSection);
@@ -200,6 +211,7 @@ public class AdminView extends VBox implements ManagedView {
         String selectedMentor = mentorList.getValue();
 
         if (selectedMentee == null || selectedMentor == null) {
+            /* PUT THIS AS ERROR */
             System.out.println("Select both a mentee and a mentor.");
         }
 
@@ -215,8 +227,6 @@ public class AdminView extends VBox implements ManagedView {
         /* Resetting drop-down boxes for next selection */
         menteeList.setValue(null);
         mentorList.setValue(null);
-
-        System.out.println("Pairing " + selectedMentee + " with " + selectedMentor);
     }
 
 

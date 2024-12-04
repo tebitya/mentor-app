@@ -65,8 +65,4 @@ public class AdminController {
         selectedPairs.add(new Pair<>(mentee, mentor));
     }
 
-    public List<Pair<String, String>> getSelectedPairs(){
-        return selectedPairs;
-    }
-
 }
