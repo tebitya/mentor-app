@@ -1,5 +1,6 @@
 package uk.ac.nott.cs.comp2013.mentorapp.view;
 
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.EventHandler;
@@ -142,6 +143,7 @@ public class LoginView extends VBox implements ManagedView {
     /* Adding these labels to the screen*/
     loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin, resetPassword, createAccount, separator, rolePage);
     getChildren().addAll(loginBox);
+    Platform.runLater(this::requestFocus);
 
     /* Once log in button is clicked */
     btnLogin.setOnAction(e -> {
