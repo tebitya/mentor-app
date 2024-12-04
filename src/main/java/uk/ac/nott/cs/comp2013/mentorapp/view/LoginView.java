@@ -151,7 +151,6 @@ public class LoginView extends VBox implements ManagedView {
       UserRole role = LoginController.getSelectedRole();
       var eh = onViewChange.get();
       if (success) {
-        System.out.println("here");
         if (eh != null) {
           if (role == UserRole.ADMIN) {
             eh.handle(new ViewChangeEvent(ViewManager.ADMIN_VIEW));

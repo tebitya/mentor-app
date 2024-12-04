@@ -30,6 +30,7 @@ public class AdminView extends VBox implements ManagedView {
     private final TableView<Pair<String, String>> pairsTable = new TableView<>();
     private final ObservableList<Pair<String, String>> pairsResults = FXCollections.observableArrayList();
     private final AdminController controller;
+    private Label errorLbl;
 
 
     public AdminView(AdminController controller) {
@@ -134,7 +135,7 @@ public class AdminView extends VBox implements ManagedView {
         HBox pairingRow = new HBox(10);
         /* Put in centre as is admin's main interaction with the page */
         pairingRow.setAlignment(Pos.CENTER);
-        pairingRow.setPadding(new Insets(20));
+        pairingRow.setPadding(new Insets(10));
 
         /* To display mentee data */
         Label menteeLbl = new Label("Mentee");
@@ -150,7 +151,8 @@ public class AdminView extends VBox implements ManagedView {
 
         /* Button for user to click to confirm the current pair */
         Button pairBtn = new Button("Pair");
-        pairBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-padding: 8; -fx-cursor: hand;;");
+        pairBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-cursor: hand;;");
+        pairBtn.setPrefWidth(100);
         pairBtn.setOnAction(e -> handlePairBtnClick());
 
         /* Adding individual components to main hbox */
@@ -186,17 +188,23 @@ public class AdminView extends VBox implements ManagedView {
         /* Increasing size for improved readability */
         pairsTable.setStyle("-fx-font-size: 16px;");
         /* Setting the height of the table */
+        pairsTable.setPrefHeight(400);
+        /* Adding scrollbar if admin wants to make many pairs */
+        ScrollPane scrollBar = new ScrollPane(pairsTable);
+        scrollBar.setFitToWidth(true);
+        scrollBar.setPrefHeight(400);
 
 
 
         /* Button needed for admin to confirm their final selection */
         Button confirmBtn = new Button("Confirm");
-        confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-padding: 8; -fx-cursor: hand;;");
+        confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white;-fx-cursor: hand;;");
+        confirmBtn.setPrefWidth(100);
         /* CREATE NEW FUNCTION WHAT HAPPENS ONCE BUTTON CLICKED */
 
 
         /* Adding all parts of pairing interface to the VBox */
-        pairingSection.getChildren().addAll(pairingRow, pairsTable, confirmBtn);
+        pairingSection.getChildren().addAll(pairingRow, scrollBar, confirmBtn);
         pairingSection.setAlignment(Pos.CENTER);
         pairingSection.setPadding(new Insets(20));
         pairingSection.setPrefWidth(600);
@@ -210,23 +218,35 @@ public class AdminView extends VBox implements ManagedView {
         String selectedMentee = menteeList.getValue();
         String selectedMentor = mentorList.getValue();
 
-        if (selectedMentee == null || selectedMentor == null) {
-            /* PUT THIS AS ERROR */
-            System.out.println("Select both a mentee and a mentor.");
+        /* Firstly removing the error message if it is already present */
+        if (errorLbl != null) {
+            getChildren().remove(errorLbl);
+            errorLbl = null;
         }
 
-        /* Adding the pair */
-        controller.addPair(selectedMentee, selectedMentor);
-        /* Adding it to the table now */
-        pairsResults.add(new Pair<>(selectedMentee, selectedMentor));
+        if (selectedMentee == null || selectedMentor == null) {
+            /* PUT THIS AS ERROR */
+            errorLbl = new Label("Select both a mentee and a mentor.");
+            errorLbl.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px;");
+            errorLbl.setMaxWidth(900);
 
-        /* !! Removing selected mentors & mentees from drop-down once they have been selected */
-        menteeList.getItems().remove(selectedMentee);
-        mentorList.getItems().remove(selectedMentor);
+            errorLbl.setAlignment(Pos.CENTER);
+            getChildren().add(errorLbl);
+        }else{
+            /* Adding the pair */
+            controller.addPair(selectedMentee, selectedMentor);
+            /* Adding it to the table now */
+            pairsResults.add(new Pair<>(selectedMentee, selectedMentor));
 
-        /* Resetting drop-down boxes for next selection */
-        menteeList.setValue(null);
-        mentorList.setValue(null);
+            /* !! Removing selected mentors & mentees from drop-down once they have been selected */
+            menteeList.getItems().remove(selectedMentee);
+            mentorList.getItems().remove(selectedMentor);
+
+            /* Resetting drop-down boxes for next selection */
+            menteeList.setValue(null);
+            mentorList.setValue(null);
+        }
+
     }
 
 
