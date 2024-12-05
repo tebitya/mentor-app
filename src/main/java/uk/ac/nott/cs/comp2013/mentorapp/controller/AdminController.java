@@ -103,8 +103,4 @@ public class AdminController {
         }
     }
 
-    public List<Pair<String, String>> getPairsResults() {
-        return pairsResults;
-    }
-
 }

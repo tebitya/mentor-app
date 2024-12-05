@@ -177,8 +177,14 @@ public class AdminControllerTests {
     }
 
     /* 9. Testing the writeCSVfile function */
-    
+    @Test
+    public void testWritePairsToCSV() {
+        adminController.addPair("mentee1", "mentor1");
+        adminController.addPair("mentee2", "mentor2");
+        /* Calling function */
+        adminController.writePairsToCSV();
 
-
+        assertEquals(2, pairsResults.size(), "Should have written 2 pairs");
+    }
 
 }
