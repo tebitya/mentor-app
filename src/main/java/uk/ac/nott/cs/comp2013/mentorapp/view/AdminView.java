@@ -36,6 +36,8 @@ public class AdminView extends VBox implements ManagedView {
     private final AdminController controller;
     private Label errorLbl;
 
+    private LoginView loginView;
+
 
     public AdminView(AdminController controller) {
         this.controller = controller;
@@ -318,12 +320,14 @@ public class AdminView extends VBox implements ManagedView {
                 var eh = onViewChange.get();
                 if (eh != null) {
                     eh.handle(new ViewChangeEvent(ViewManager.LOGIN));
+
                 }
             }
         });
 
         return label;
     }
+
 
     @Override
     public EventHandler<? super ViewChangeEvent> getOnViewChange() {

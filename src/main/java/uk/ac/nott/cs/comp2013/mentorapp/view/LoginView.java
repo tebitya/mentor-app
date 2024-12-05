@@ -30,6 +30,8 @@ public class LoginView extends VBox implements ManagedView {
   public LoginView(LoginController controller) {
     this.controller = controller;
     this.onViewChange = new SimpleObjectProperty<>("onViewChange", null);
+
+
     /* Making the window larger */
     setPrefSize(900,700);
     setMinSize(500,300);
@@ -44,6 +46,7 @@ public class LoginView extends VBox implements ManagedView {
   private void buildView() {
     /* VBox to hold all components */
     /* Allows border to be created around entire login form */
+
     VBox loginBox = new VBox(10);
     loginBox.setAlignment(Pos.CENTER);
 
@@ -160,6 +163,7 @@ public class LoginView extends VBox implements ManagedView {
             eh.handle(new ViewChangeEvent(ViewManager.MENTEE_VIEW));
           }
         }
+        clearInputs();
           /* Added 'else' condition for when login is not validated*/
       } else {
           invalidLogin.setText("  Invalid login or incorrect role. Please try again.  ");
@@ -168,6 +172,13 @@ public class LoginView extends VBox implements ManagedView {
       }
 
     });
+
+  }
+
+  /* To clear inputs after entered */
+  public void clearInputs() {
+    txtUsername.clear();
+    txtPassword.clear();
   }
 
   @Override
