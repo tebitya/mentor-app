@@ -19,7 +19,6 @@ public class AdminController {
 
     private final Repository<User, String> userRepo;
     private final List<Pair<String, String>> pairsResults;
-    private final List<Pair<String, String>> selectedPairs = new ArrayList<>();
 
     /* Using same params as login */
     public AdminController(Repository<User, String> model, List<Pair<String, String>> pairsResults) {
