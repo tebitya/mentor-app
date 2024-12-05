@@ -53,14 +53,8 @@ public class AdminView extends VBox implements ManagedView {
 
     private void loadDropdownData() {
         /* Getting the list from the method in admin controller */
-        List<String> mentees = controller.listAllMentees();
-        /* Setting it to be visible as individual items from array */
-        menteeList.setItems(FXCollections.observableArrayList(mentees));
-
-        /* Doing the same for the mentor data */
-        List<String> mentors = controller.listAllMentors();
-        /* Setting it to be visible as individual items from array */
-        mentorList.setItems(FXCollections.observableArrayList(mentors));
+        menteeList.setItems(FXCollections.observableArrayList(controller.listAllMentees()));
+        mentorList.setItems(FXCollections.observableArrayList(controller.listAllMentors()));
     }
 
     private void buildView() {
@@ -230,38 +224,9 @@ public class AdminView extends VBox implements ManagedView {
         /* Adding message to the page */
         getChildren().add(confirmationLbl);
 
-
-        writePairsToCSV();
-
+        controller.writePairsToCSV();
     }
 
-    private void writePairsToCSV() {
-        /* Function to permanently record the pairs made into a csv file */
-        /* Creating the new file in specified location */
-        String directoryPath = "src/main/pairing";
-        /* Choosing name of file */
-        String filePath = directoryPath + "/confirmed-pairs.csv";
-
-        /* Creating the new file */
-        File file = new File(filePath);
-        /* Testing first with simple message */
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write("Mentee, Mentor");
-            writer.newLine();
-            /* Looping through the pairs admin selected */
-            for (Pair<String, String> pair : pairsResults) {
-                writer.write(pair.getKey() + "," + pair.getValue());
-                /* New line after each pair for readability */
-                writer.newLine();
-            }
-            int totalPairs = pairsResults.size();
-            writer.write("Total number of pairs: " + totalPairs);
-            writer.newLine();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void handlePairBtnClick() {
         /* Function that occurs once admin has pressed the button labelled 'pair' */
@@ -287,7 +252,6 @@ public class AdminView extends VBox implements ManagedView {
             controller.addPair(selectedMentee, selectedMentor);
             /* Adding it to the table now */
             pairsResults.add(new Pair<>(selectedMentee, selectedMentor));
-
             /* !! Removing selected mentors & mentees from drop-down once they have been selected */
             menteeList.getItems().remove(selectedMentee);
             mentorList.getItems().remove(selectedMentor);

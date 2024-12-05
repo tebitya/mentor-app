@@ -1,8 +1,12 @@
 package uk.ac.nott.cs.comp2013.mentorapp;
 
 import java.io.IOException;
+import java.util.List;
+
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.*;
 import uk.ac.nott.cs.comp2013.mentorapp.model.Repository;
 import uk.ac.nott.cs.comp2013.mentorapp.model.RepositoryFactory;
@@ -45,7 +49,8 @@ public class MentorApp extends Application {
   }
 
   private AdminView createAdminView(Repository<User, String> repo){
-    AdminController controller = new AdminController(repo);
+    List<Pair<String, String>> pairsResults = FXCollections.observableArrayList();
+    AdminController controller = new AdminController(repo, pairsResults);
     return new AdminView(controller);
   }
 

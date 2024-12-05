@@ -6,6 +6,10 @@ import uk.ac.nott.cs.comp2013.mentorapp.model.user.HasAvailability;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.UserRole;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +18,13 @@ import java.time.LocalDateTime;
 public class AdminController {
 
     private final Repository<User, String> userRepo;
+    private final List<Pair<String, String>> pairsResults;
     private final List<Pair<String, String>> selectedPairs = new ArrayList<>();
 
     /* Using same params as login */
-    public AdminController(Repository<User, String> model) {
+    public AdminController(Repository<User, String> model, List<Pair<String, String>> pairsResults) {
         this.userRepo = model;
+        this.pairsResults = pairsResults;
     }
 
     /* To return the names needed for displaying in drop down menus*/
@@ -62,7 +68,43 @@ public class AdminController {
     /* Now move onto specifics in use case */
     /* Adding the pair created */
     public void addPair(String mentee, String mentor){
-        selectedPairs.add(new Pair<>(mentee, mentor));
+        Pair<String, String> pair = new Pair<>(mentee, mentor);
+        pairsResults.add(pair);
+
+    }
+
+
+    public void writePairsToCSV() {
+        /* Function to permanently record the pairs made into a csv file */
+        /* Creating the new file in specified location */
+        String directoryPath = "src/main/pairing";
+        /* Choosing name of file */
+        String filePath = directoryPath + "/confirmed-pairs.csv";
+
+        /* Creating the new file */
+        File file = new File(filePath);
+        /* Testing first with simple message */
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write("Mentee, Mentor");
+            writer.newLine();
+            /* Looping through the pairs admin selected */
+            for (Pair<String, String> pair : pairsResults) {
+                writer.write(pair.getKey() + "," + pair.getValue());
+                /* New line after each pair for readability */
+                writer.newLine();
+            }
+            int totalPairs = pairsResults.size();
+            writer.write("Total number of pairs: " + totalPairs);
+            writer.newLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Pair<String, String>> getPairsResults() {
+        return pairsResults;
     }
 
 }
