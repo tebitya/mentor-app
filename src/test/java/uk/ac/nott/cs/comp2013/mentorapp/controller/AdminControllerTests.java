@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import uk.ac.nott.cs.comp2013.mentorapp.model.Repository;
-import uk.ac.nott.cs.comp2013.mentorapp.model.user.HasAvailability;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.Mentor;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.UserRole;
@@ -131,7 +130,7 @@ public class AdminControllerTests {
     public void testListAllMentorsInvalid() {
         Mentor mentor = mock(Mentor.class);
         when(mentor.getRole()).thenReturn(UserRole.MENTOR);
-        
+
         /* Sets start as now, and end as in 5 months */
         when(mentor.getStartAvailability()).thenReturn(LocalDateTime.now());
         when(mentor.getEndAvailability()).thenReturn(LocalDateTime.now().plusMonths(5));
@@ -144,6 +143,42 @@ public class AdminControllerTests {
 
         assertTrue(mentors.isEmpty(), "Should return no mentors");
     }
+
+    /* 7. Testing the addPair() function */
+    @Test
+    public void testAddPair() {
+        /* Goal is to make these two a pair */
+        adminController.addPair("mentee1", "mentor1");
+
+        assertEquals(1, pairsResults.size(), "Should contain one pair");
+        assertEquals("mentee1", pairsResults.getFirst().getKey(), "First in pair (mentee) should be mentee1");
+        assertEquals("mentor1", pairsResults.getFirst().getValue(), "First in pair (mentor) should be mentor1");
+    }
+
+
+    /* 8. Testing same function with multiple pairs */
+    @Test
+    public void testAddPairMultiple() {
+        /* Adding 3 pairs */
+        adminController.addPair("mentee1", "mentor1");
+        adminController.addPair("mentee2", "mentor2");
+        adminController.addPair("mentee3", "mentor3");
+
+        assertEquals(3, pairsResults.size(), "Should contain three pair");
+
+        assertEquals("mentee1", pairsResults.get(0).getKey(), "First in pair (mentee) should be mentee1");
+        assertEquals("mentor1", pairsResults.get(0).getValue(), "First in pair (mentor) should be mentor1");
+
+        assertEquals("mentee2", pairsResults.get(1).getKey(), "Second in pair (mentee) should be mentee2");
+        assertEquals("mentor2", pairsResults.get(1).getValue(), "Second in pair (mentor) should be mentor2");
+
+        assertEquals("mentee3", pairsResults.get(2).getKey(), "Third in pair (mentee) should be mentee3");
+        assertEquals("mentor3", pairsResults.get(2).getValue(), "Third in pair (mentor) should be mentor3");
+    }
+
+    /* 9. Testing the writeCSVfile function */
+    
+
 
 
 }
