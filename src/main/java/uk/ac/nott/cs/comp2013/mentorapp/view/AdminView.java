@@ -110,7 +110,7 @@ public class AdminView extends VBox implements ManagedView {
 
         /* And add role label too to differentiate between different roles */
         Label roleLbl = new Label("ADMIN");
-        roleLbl.setStyle("-fx-text-fill: #273B4D; -fx-font-size: 16px; -fx-font-weight: bold;");
+        roleLbl.setStyle("-fx-text-fill: #273B4D; -fx-font-size: 16px; -fx-font-weight: bold; -fx-font-family: 'Arial';");
 
         /* Put in these two as string to avoid overcomplication */
         /* As used on Moodle */
@@ -123,7 +123,7 @@ public class AdminView extends VBox implements ManagedView {
 
         /* Simple welcome message  */
         Label welcome = new Label("Welcome ");
-        welcome.setStyle("-fx-font-size: 24px; -fx-text-fill: #10263B; -fx-font-weight: bold;");
+        welcome.setStyle("-fx-font-size: 24px; -fx-text-fill: #10263B; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         welcome.setPadding(new Insets(20));
 
         ///////////////////////////////////////////////////////////////
@@ -139,19 +139,19 @@ public class AdminView extends VBox implements ManagedView {
 
         /* To display mentee data */
         Label menteeLbl = new Label("Mentee");
-        menteeLbl.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        menteeLbl.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         menteeList.setPromptText("Select a Mentee");
-        menteeList.setStyle("-fx-font-size: 16px;");
+        menteeList.setStyle("-fx-font-size: 16px; -fx-font-family: 'Arial';");
 
         /* To display mentor data */
         Label mentorLbl = new Label("Mentor");
-        mentorLbl.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+        mentorLbl.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         mentorList.setPromptText("Select a Mentor");
-        mentorList.setStyle("-fx-font-size: 16px;");
+        mentorList.setStyle("-fx-font-size: 16px; -fx-font-family: 'Arial';");
 
         /* Button for user to click to confirm the current pair */
         Button pairBtn = new Button("Pair");
-        pairBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-cursor: hand;;");
+        pairBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white; -fx-cursor: hand;-fx-font-family: 'Arial';");
         pairBtn.setPrefWidth(100);
         pairBtn.setOnAction(e -> handlePairBtnClick());
 
@@ -195,10 +195,9 @@ public class AdminView extends VBox implements ManagedView {
         scrollBar.setPrefHeight(400);
 
 
-
         /* Button needed for admin to confirm their final selection */
         Button confirmBtn = new Button("Confirm");
-        confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white;-fx-cursor: hand;;");
+        confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white;-fx-cursor: hand;-fx-font-family: 'Arial';");
         confirmBtn.setPrefWidth(100);
         /* CREATE NEW FUNCTION WHAT HAPPENS ONCE BUTTON CLICKED */
         confirmBtn.setOnAction(e -> handleConfirmBtnClick());
@@ -216,7 +215,7 @@ public class AdminView extends VBox implements ManagedView {
     private void handleConfirmBtnClick() {
         Label confirmationLbl = new Label("Pairing confirmed. Notifications will be sent to selected mentees and mentors.");
         /* Similar styling to error messages */
-        confirmationLbl.setStyle("-fx-background-color: #D4EDDA; -fx-text-fill: #155724; -fx-font-size: 16px;");
+        confirmationLbl.setStyle("-fx-background-color: #D4EDDA; -fx-text-fill: #155724; -fx-font-size: 16px; -fx-font-family: 'Arial';");
         confirmationLbl.setPadding(new Insets(10));
         confirmationLbl.setAlignment(Pos.CENTER);
         /* To cover entire width of window */
@@ -242,7 +241,7 @@ public class AdminView extends VBox implements ManagedView {
         if (selectedMentee == null || selectedMentor == null) {
             /* PUT THIS AS ERROR */
             errorLbl = new Label("Select both a mentee and a mentor.");
-            errorLbl.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px;");
+            errorLbl.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px; -fx-font-family: 'Arial';");
             errorLbl.setMaxWidth(900);
 
             errorLbl.setAlignment(Pos.CENTER);
@@ -267,13 +266,13 @@ public class AdminView extends VBox implements ManagedView {
     private Label createLinkLabel(String page){
         /* Generic as of now so can be applied to all three */
         Label label = new Label(page);
-        label.setStyle("-fx-font-weight: bold; -fx-text-fill: #263A4D; -fx-font-size: 16px; -fx-cursor: hand;");
+        label.setStyle("-fx-font-weight: bold; -fx-text-fill: #263A4D; -fx-font-size: 16px; -fx-cursor: hand; -fx-font-family: 'Arial';");
         label.setPadding(new Insets(15));
 
         /* When user hovers on the link */
         /* Background colour changes to show interaction */
-        label.setOnMouseEntered(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #F3F4F5;-fx-font-size: 16px; -fx-text-fill: #273B4D; -fx-cursor: hand;"));
-        label.setOnMouseExited(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #FDFBF9; -fx-font-size: 16px; -fx-text-fill: #405162; -fx-cursor: hand;"));
+        label.setOnMouseEntered(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #F3F4F5;-fx-font-size: 16px; -fx-text-fill: #273B4D; -fx-cursor: hand; -fx-font-family: 'Arial';"));
+        label.setOnMouseExited(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #FDFBF9; -fx-font-size: 16px; -fx-text-fill: #405162; -fx-cursor: hand; -fx-font-family: 'Arial';"));
 
         /* LOGIC TO BE IMPLEMENTED LATER */
         /* FOR NOW BARE-BONES */

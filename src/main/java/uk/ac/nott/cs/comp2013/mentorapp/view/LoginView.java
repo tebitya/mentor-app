@@ -84,7 +84,7 @@ public class LoginView extends VBox implements ManagedView {
     Label loginTitle = new Label("Welcome to the Mentor App");
     /* To position title in centre */
     loginTitle.setAlignment(Pos.CENTER);
-    loginTitle.setStyle("-fx-text-fill: #10263B; -fx-font-size: 20px; -fx-font-weight: bold;");
+    loginTitle.setStyle("-fx-text-fill: #10263B; -fx-font-size: 20px; -fx-font-weight: bold; -fx-font-family: 'Arial';");
     loginTitle.setPadding(new Insets(10));
 
     /* Added limits for the widths of the input boxes */
@@ -93,7 +93,7 @@ public class LoginView extends VBox implements ManagedView {
     txtUsername.setPromptText("Username");
     txtUsername.setMaxWidth(400);
     txtUsername.setPadding(new Insets(10));
-    txtUsername.setStyle("-fx-font-size: 16px;");
+    txtUsername.setStyle("-fx-font-size: 16px; -fx-font-family: 'Arial';");
 
     /* For password field */
     /* PasswordField added for security */
@@ -102,27 +102,27 @@ public class LoginView extends VBox implements ManagedView {
     txtPassword.setMaxWidth(400);
     /* Used throughout to mimic padding of Moodle login page */
     txtPassword.setPadding(new Insets(10));
-    txtPassword.setStyle("-fx-font-size: 16px;");
+    txtPassword.setStyle("-fx-font-size: 16px; -fx-font-family: 'Arial';");
 
     /* Login button */
     /* Changing text in button to make it more similar to Moodle page */
     Button btnLogin = new Button("  Log in  ");
     /* Changing colour of button and text inside to make it more similar to Moodle login page*/
-    btnLogin.setStyle("-fx-background-color: #10263B;-fx-text-fill: white; -fx-font-size: 16px;");
+    btnLogin.setStyle("-fx-background-color: #10263B;-fx-text-fill: white; -fx-font-size: 16px;-fx-font-family: 'Arial';");
     btnLogin.setPadding(new Insets(10));
 
 
     /* Creation of label to be displayed if login is invalid */
     Label invalidLogin = new Label();
-    invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px;");
+    invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px;-fx-font-family: 'Arial';");
 
     /* Link to create account */
     Label createAccount = new Label("Register account");
-    createAccount.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+    createAccount.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;-fx-font-family: 'Arial';");
 
     /* Link to reset password */
     Label resetPassword = new Label("Lost password?");
-    resetPassword.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+    resetPassword.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;-fx-font-family: 'Arial';");
 
     /* Using a separator as is seen on Moodle page */
     Separator separator = new Separator();
@@ -132,7 +132,7 @@ public class LoginView extends VBox implements ManagedView {
 
     /* Button to go back to role selection page */
     Button rolePage = new Button("Back to Role Selection");
-    rolePage.setStyle("-fx-background-color: #CCCCCC; -fx-text-fill: black; -fx-font-size: 14px;");
+    rolePage.setStyle("-fx-background-color: #CCCCCC; -fx-text-fill: black; -fx-font-size: 14px;-fx-font-family: 'Arial';");
     rolePage.setPadding(new Insets(10));
 
     /* Logic for going back to role page */
