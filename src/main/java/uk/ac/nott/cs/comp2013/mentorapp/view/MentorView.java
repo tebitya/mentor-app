@@ -137,6 +137,31 @@ public class MentorView extends VBox implements ManagedView {
     }
 
     private void handleConfirmBtnClick(DatePicker startAvail, DatePicker endAvail) {
+        /* When confirm button is clicked */
+        /* EXACT same as menteeview */
+        /* Firstly removing the error message if it is already present */
+
+        if (progressLbl != null) {
+            getChildren().remove(progressLbl);
+            progressLbl = null;
+        }
+
+        if (startAvail.getValue() == null || endAvail.getValue() == null){
+            progressLbl = new Label("Select start and end availability.");
+            progressLbl.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px; -fx-font-family: 'Arial';");
+
+            /* controller bit comes in here when it is written */
+        }else{
+            progressLbl = new Label ("Availability Submitted. Notification sent to administrator.");
+            /* Similar styling to error messages */
+            progressLbl.setStyle("-fx-background-color: #D4EDDA; -fx-text-fill: #155724; -fx-font-size: 16px; -fx-font-family: 'Arial';");
+        }
+        progressLbl.setAlignment(Pos.CENTER);
+        progressLbl.setMaxWidth(Double.MAX_VALUE);
+        progressLbl.setPadding(new Insets(10));
+
+        getChildren().add(progressLbl);
+
     }
 
     /* Separate function for creating labels in navigation bar */
