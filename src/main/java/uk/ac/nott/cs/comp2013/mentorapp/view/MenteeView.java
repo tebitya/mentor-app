@@ -3,6 +3,8 @@ package uk.ac.nott.cs.comp2013.mentorapp.view;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -17,6 +19,7 @@ import java.util.Objects;
 public class MenteeView extends VBox implements ManagedView {
 
     protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
+    private Label progressLbl;
 
 
     public MenteeView(MenteeController controller) {
@@ -104,14 +107,76 @@ public class MenteeView extends VBox implements ManagedView {
         description.setPadding(new Insets(20));
         description.setWrapText(true);
 
+        /* Drop-down box with support types */
+        Label selectSupport = new Label ("Select type of support: ");
+        selectSupport.setStyle("-fx-font-size: 20px; -fx-text-fill: #273B4D; -fx-font-family: 'Arial';");
+        selectSupport.setPadding(new Insets(20));
+
+        /* Most effective way to display support types */
+        ComboBox<String> supportTypes = new ComboBox<>();
+        supportTypes.getItems().addAll("Academic Support", "Technical Support", "Financial Support", "Mental Health Support");
+        supportTypes.setPromptText("Choose support type");
+        supportTypes.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial';");
+        supportTypes.setPrefWidth(300);
+
+        /* Button next to combo box for user to confirm their choice */
+        Button confirmBtn = new Button("Confirm");
+        confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white;-fx-cursor: hand;-fx-font-family: 'Arial';");
+        confirmBtn.setPadding(new Insets(10));
+        confirmBtn.setOnAction(e -> handleConfirmBtnClick(supportTypes));
+
+        /* HBox for requesting support component */
+        HBox requestSupport = new HBox(10, supportTypes, confirmBtn);
+        requestSupport.setAlignment(Pos.CENTER);
+        requestSupport.setPadding(new Insets(10));
+
 
         /* Adding all individual hbox to main navigation one */
         navBar.getChildren().addAll(linksBox, iconsBox);
 
         /* Adding main hbox to page */
-        getChildren().addAll(navBar, welcome, description);
+        getChildren().addAll(navBar, welcome, description, selectSupport, requestSupport);
 
     }
+
+    private void handleConfirmBtnClick(ComboBox<String> supportTypes) {
+        /* For when user clicks the confirmation button */
+
+        /* Firstly removing the error message if it is already present */
+        if (progressLbl != null) {
+            getChildren().remove(progressLbl);
+            progressLbl = null;
+        }
+
+        if (supportTypes.getValue() == null){
+            Label progressLbl = new Label("Select a support type.");
+            progressLbl.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px; -fx-font-family: 'Arial';");
+            progressLbl.setAlignment(Pos.CENTER);
+
+            progressLbl.setMaxWidth(Double.MAX_VALUE);
+            progressLbl.setPadding(new Insets(10));
+
+            VBox.setMargin(progressLbl, new Insets(10, 0, 0, 0));
+            getChildren().add(progressLbl);
+
+            /* controller bit comes in here when it is written */
+
+        }else{
+            Label progressLbl = new Label ("Support Request Submitted. Notification sent to administrator.");
+            /* Similar styling to error messages */
+            progressLbl.setStyle("-fx-background-color: #D4EDDA; -fx-text-fill: #155724; -fx-font-size: 16px; -fx-font-family: 'Arial';");
+
+            progressLbl.setAlignment(Pos.CENTER);
+
+            progressLbl.setMaxWidth(Double.MAX_VALUE);
+            progressLbl.setPadding(new Insets(10));
+
+            VBox.setMargin(progressLbl, new Insets(10, 0, 0, 0));
+            getChildren().add(progressLbl);
+        }
+
+    }
+
 
     /* Separate function for creating labels in navigation bar */
     private Label createLinkLabel(String page){
