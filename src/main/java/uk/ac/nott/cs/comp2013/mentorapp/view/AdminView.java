@@ -16,11 +16,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.util.Pair;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.AdminController;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class AdminView extends VBox implements ManagedView {
@@ -219,7 +214,7 @@ public class AdminView extends VBox implements ManagedView {
         confirmationLbl.setPadding(new Insets(10));
         confirmationLbl.setAlignment(Pos.CENTER);
         /* To cover entire width of window */
-        confirmationLbl.setMaxWidth(900);
+        confirmationLbl.setMaxWidth(Double.MAX_VALUE);
         /* Adding message to the page */
         getChildren().add(confirmationLbl);
 
@@ -242,7 +237,7 @@ public class AdminView extends VBox implements ManagedView {
             /* PUT THIS AS ERROR */
             errorLbl = new Label("Select both a mentee and a mentor.");
             errorLbl.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px; -fx-font-family: 'Arial';");
-            errorLbl.setMaxWidth(900);
+            errorLbl.setMaxWidth(Double.MAX_VALUE);
 
             errorLbl.setAlignment(Pos.CENTER);
             getChildren().add(errorLbl);

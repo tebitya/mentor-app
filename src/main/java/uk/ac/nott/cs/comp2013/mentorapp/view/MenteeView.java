@@ -22,6 +22,7 @@ public class MenteeView extends VBox implements ManagedView {
     private Label progressLbl;
 
 
+
     public MenteeView(MenteeController controller) {
         this.onViewChange = new SimpleObjectProperty<>("onViewChange", null);
 
@@ -141,7 +142,6 @@ public class MenteeView extends VBox implements ManagedView {
 
     private void handleConfirmBtnClick(ComboBox<String> supportTypes) {
         /* For when user clicks the confirmation button */
-
         /* Firstly removing the error message if it is already present */
         if (progressLbl != null) {
             getChildren().remove(progressLbl);
@@ -149,32 +149,20 @@ public class MenteeView extends VBox implements ManagedView {
         }
 
         if (supportTypes.getValue() == null){
-            Label progressLbl = new Label("Select a support type.");
+            progressLbl = new Label("Select a support type.");
             progressLbl.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px; -fx-font-family: 'Arial';");
-            progressLbl.setAlignment(Pos.CENTER);
-
-            progressLbl.setMaxWidth(Double.MAX_VALUE);
-            progressLbl.setPadding(new Insets(10));
-
-            VBox.setMargin(progressLbl, new Insets(10, 0, 0, 0));
-            getChildren().add(progressLbl);
 
             /* controller bit comes in here when it is written */
-
         }else{
-            Label progressLbl = new Label ("Support Request Submitted. Notification sent to administrator.");
+            progressLbl = new Label ("Support Request Submitted. Notification sent to administrator.");
             /* Similar styling to error messages */
             progressLbl.setStyle("-fx-background-color: #D4EDDA; -fx-text-fill: #155724; -fx-font-size: 16px; -fx-font-family: 'Arial';");
-
-            progressLbl.setAlignment(Pos.CENTER);
-
-            progressLbl.setMaxWidth(Double.MAX_VALUE);
-            progressLbl.setPadding(new Insets(10));
-
-            VBox.setMargin(progressLbl, new Insets(10, 0, 0, 0));
-            getChildren().add(progressLbl);
         }
+        progressLbl.setAlignment(Pos.CENTER);
+        progressLbl.setMaxWidth(Double.MAX_VALUE);
+        progressLbl.setPadding(new Insets(10));
 
+        getChildren().add(progressLbl);
     }
 
 
