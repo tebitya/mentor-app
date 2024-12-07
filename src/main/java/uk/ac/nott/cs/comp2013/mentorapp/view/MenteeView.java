@@ -97,12 +97,19 @@ public class MenteeView extends VBox implements ManagedView {
         welcome.setStyle("-fx-font-size: 24px; -fx-text-fill: #10263B; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         welcome.setPadding(new Insets(20));
 
+        /////////////////////////////////////////////////////
+        /* Individual mentee support request layout */
+        Label description = new Label ("This page allows you to request support for various needs.\nSelect a type of support below and we will pair you with an appropriate mentor.");
+        description.setStyle("-fx-font-size: 20px; -fx-text-fill: #273B4D; -fx-font-family: 'Arial';");
+        description.setPadding(new Insets(20));
+        description.setWrapText(true);
+
 
         /* Adding all individual hbox to main navigation one */
         navBar.getChildren().addAll(linksBox, iconsBox);
 
         /* Adding main hbox to page */
-        getChildren().addAll(navBar, welcome);
+        getChildren().addAll(navBar, welcome, description);
 
     }
 
