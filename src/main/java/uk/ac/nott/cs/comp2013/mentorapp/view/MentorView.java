@@ -3,6 +3,8 @@ package uk.ac.nott.cs.comp2013.mentorapp.view;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -10,14 +12,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import uk.ac.nott.cs.comp2013.mentorapp.controller.MenteeController;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.MentorController;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class MentorView extends VBox implements ManagedView {
 
     protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
+    private Label progressLbl;
 
     public MentorView(MentorController controller) {
 
@@ -98,12 +101,42 @@ public class MentorView extends VBox implements ManagedView {
         welcome.setStyle("-fx-font-size: 24px; -fx-text-fill: #10263B; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         welcome.setPadding(new Insets(20));
 
+        ////////////////////////////////////////////////////
+        /* UI for date selection */
+        Label description = new Label ("This page allows you to select your availability to ensure that the correct mentor is assigned to you.\nPlease include both the start and end of your availability.");
+        description.setStyle("-fx-font-size: 20px; -fx-text-fill: #273B4D; -fx-font-family: 'Arial';");
+        description.setPadding(new Insets(20));
+        description.setWrapText(true);
+
+        /* Date Pickers for user to get little calendar to select dates */
+        DatePicker startAvail = new DatePicker();
+        startAvail.setPromptText("Select Start Date");
+        startAvail.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial';");
+
+        /* Now same layout for end date */
+        DatePicker endAvail = new DatePicker();
+        endAvail.setPromptText("Select End Date");
+        endAvail.setStyle("-fx-font-size: 18px; -fx-font-family: 'Arial';");
+
+        /* Confirmation Button - same as in mentee */
+        Button confirmBtn = new Button("Confirm");
+        confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white;-fx-cursor: hand;-fx-font-family: 'Arial';");
+        confirmBtn.setPadding(new Insets(10));
+        confirmBtn.setOnAction(e -> handleConfirmBtnClick(startAvail, endAvail));
+
+        /* HBox for setting availability component */
+        HBox setAvailability = new HBox(10, startAvail, endAvail, confirmBtn);
+        setAvailability.setAlignment(Pos.CENTER);
+        setAvailability.setPadding(new Insets(10));
 
         /* Adding all individual hbox to main navigation one */
         navBar.getChildren().addAll(linksBox, iconsBox);
 
         /* Adding main hbox to page */
-        getChildren().addAll(navBar, welcome);
+        getChildren().addAll(navBar, welcome, description, setAvailability);
+    }
+
+    private void handleConfirmBtnClick(DatePicker startAvail, DatePicker endAvail) {
     }
 
     /* Separate function for creating labels in navigation bar */
