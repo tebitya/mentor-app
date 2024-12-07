@@ -1,8 +1,12 @@
 package uk.ac.nott.cs.comp2013.mentorapp;
 
 import java.io.IOException;
+import java.util.List;
+
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.*;
 import uk.ac.nott.cs.comp2013.mentorapp.model.Repository;
 import uk.ac.nott.cs.comp2013.mentorapp.model.RepositoryFactory;
@@ -44,8 +48,9 @@ public class MentorApp extends Application {
     return new MentorView(controller);
   }
 
-  private AdminView createAdminView() {
-    AdminController controller = new AdminController();
+  private AdminView createAdminView(Repository<User, String> repo){
+    List<Pair<String, String>> pairsResults = FXCollections.observableArrayList();
+    AdminController controller = new AdminController(repo, pairsResults);
     return new AdminView(controller);
   }
 
@@ -60,7 +65,7 @@ public class MentorApp extends Application {
     vm.addView(ViewManager.ACTORS_VIEW, createActorsView());
     vm.addView(ViewManager.MENTEE_VIEW, createMenteeView());
     vm.addView(ViewManager.MENTOR_VIEW, createMentorView());
-    vm.addView(ViewManager.ADMIN_VIEW, createAdminView());
+    vm.addView(ViewManager.ADMIN_VIEW, createAdminView(mockData));
 
     /* Set title to windows */
     stage.setTitle("UoN Mentor App");
@@ -68,4 +73,5 @@ public class MentorApp extends Application {
     vm.setStageView(ViewManager.ACTORS_VIEW);
     stage.show();
   }
+
 }

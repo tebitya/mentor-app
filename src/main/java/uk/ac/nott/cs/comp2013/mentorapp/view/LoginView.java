@@ -1,14 +1,12 @@
 package uk.ac.nott.cs.comp2013.mentorapp.view;
 
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,8 +30,11 @@ public class LoginView extends VBox implements ManagedView {
   public LoginView(LoginController controller) {
     this.controller = controller;
     this.onViewChange = new SimpleObjectProperty<>("onViewChange", null);
+
+
     /* Making the window larger */
     setPrefSize(900,700);
+    setMinSize(500,300);
     setStyle("-fx-background-color: #FDFBF8;");
     setAlignment(Pos.CENTER);
     setPadding(new Insets(50));
@@ -45,6 +46,7 @@ public class LoginView extends VBox implements ManagedView {
   private void buildView() {
     /* VBox to hold all components */
     /* Allows border to be created around entire login form */
+
     VBox loginBox = new VBox(10);
     loginBox.setAlignment(Pos.CENTER);
 
@@ -82,7 +84,7 @@ public class LoginView extends VBox implements ManagedView {
     Label loginTitle = new Label("Welcome to the Mentor App");
     /* To position title in centre */
     loginTitle.setAlignment(Pos.CENTER);
-    loginTitle.setStyle("-fx-text-fill: #10263B; -fx-font-size: 20px; -fx-font-weight: bold;");
+    loginTitle.setStyle("-fx-text-fill: #10263B; -fx-font-size: 20px; -fx-font-weight: bold; -fx-font-family: 'Arial';");
     loginTitle.setPadding(new Insets(10));
 
     /* Added limits for the widths of the input boxes */
@@ -91,7 +93,7 @@ public class LoginView extends VBox implements ManagedView {
     txtUsername.setPromptText("Username");
     txtUsername.setMaxWidth(400);
     txtUsername.setPadding(new Insets(10));
-    txtUsername.setStyle("-fx-font-size: 16px;");
+    txtUsername.setStyle("-fx-font-size: 16px; -fx-font-family: 'Arial';");
 
     /* For password field */
     /* PasswordField added for security */
@@ -100,31 +102,37 @@ public class LoginView extends VBox implements ManagedView {
     txtPassword.setMaxWidth(400);
     /* Used throughout to mimic padding of Moodle login page */
     txtPassword.setPadding(new Insets(10));
-    txtPassword.setStyle("-fx-font-size: 16px;");
+    txtPassword.setStyle("-fx-font-size: 16px; -fx-font-family: 'Arial';");
 
     /* Login button */
     /* Changing text in button to make it more similar to Moodle page */
     Button btnLogin = new Button("  Log in  ");
     /* Changing colour of button and text inside to make it more similar to Moodle login page*/
-    btnLogin.setStyle("-fx-background-color: #10263B;-fx-text-fill: white; -fx-font-size: 14px;");
+    btnLogin.setStyle("-fx-background-color: #10263B;-fx-text-fill: white; -fx-font-size: 16px;-fx-font-family: 'Arial';");
     btnLogin.setPadding(new Insets(10));
 
 
     /* Creation of label to be displayed if login is invalid */
     Label invalidLogin = new Label();
-    invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px;");
+    invalidLogin.setStyle("-fx-background-color: #EFCED0; -fx-text-fill: #682134; -fx-font-size: 16px;-fx-font-family: 'Arial';");
 
     /* Link to create account */
     Label createAccount = new Label("Register account");
-    createAccount.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+    createAccount.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;-fx-font-family: 'Arial';");
 
     /* Link to reset password */
     Label resetPassword = new Label("Lost password?");
-    resetPassword.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;");
+    resetPassword.setStyle("-fx-text-fill: #10263B; -fx-font-size: 16px; -fx-cursor: hand; -fx-underline: true;-fx-font-family: 'Arial';");
+
+    /* Using a separator as is seen on Moodle page */
+    Separator separator = new Separator();
+    separator.setStyle("-fx-background-color: #CCCCCC;");
+    separator.setMaxWidth(600);
+    separator.setPrefHeight(0.5);
 
     /* Button to go back to role selection page */
     Button rolePage = new Button("Back to Role Selection");
-    rolePage.setStyle("-fx-background-color: #CCCCCC; -fx-text-fill: black; -fx-font-size: 14px;");
+    rolePage.setStyle("-fx-background-color: #CCCCCC; -fx-text-fill: black; -fx-font-size: 14px;-fx-font-family: 'Arial';");
     rolePage.setPadding(new Insets(10));
 
     /* Logic for going back to role page */
@@ -136,8 +144,9 @@ public class LoginView extends VBox implements ManagedView {
     });
 
     /* Adding these labels to the screen*/
-    loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin, createAccount, resetPassword, rolePage);
+    loginBox.getChildren().addAll(loginTitle, invalidLogin, txtUsername, txtPassword, btnLogin, resetPassword, createAccount, separator, rolePage);
     getChildren().addAll(loginBox);
+    Platform.runLater(this::requestFocus);
 
     /* Once log in button is clicked */
     btnLogin.setOnAction(e -> {
@@ -145,7 +154,6 @@ public class LoginView extends VBox implements ManagedView {
       UserRole role = LoginController.getSelectedRole();
       var eh = onViewChange.get();
       if (success) {
-        System.out.println("here");
         if (eh != null) {
           if (role == UserRole.ADMIN) {
             eh.handle(new ViewChangeEvent(ViewManager.ADMIN_VIEW));
@@ -155,6 +163,7 @@ public class LoginView extends VBox implements ManagedView {
             eh.handle(new ViewChangeEvent(ViewManager.MENTEE_VIEW));
           }
         }
+        clearInputs();
           /* Added 'else' condition for when login is not validated*/
       } else {
           invalidLogin.setText("  Invalid login or incorrect role. Please try again.  ");
@@ -163,6 +172,13 @@ public class LoginView extends VBox implements ManagedView {
       }
 
     });
+
+  }
+
+  /* To clear inputs after entered */
+  public void clearInputs() {
+    txtUsername.clear();
+    txtPassword.clear();
   }
 
   @Override

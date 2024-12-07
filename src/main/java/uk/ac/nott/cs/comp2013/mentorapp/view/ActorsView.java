@@ -66,7 +66,7 @@ public class ActorsView extends VBox implements ManagedView {
         /* END of formulating role box */
 
         Label title = new Label("Select Your Role");
-        title.setStyle("-fx-text-fill: #10263B; -fx-font-size: 24px; -fx-font-weight: bold;");
+        title.setStyle("-fx-text-fill: #10263B; -fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         title.setAlignment(Pos.CENTER);
 
 
@@ -75,7 +75,7 @@ public class ActorsView extends VBox implements ManagedView {
         Button menteeBtn = new Button("Mentee");
         Button adminBtn = new Button("Admin");
 
-        String buttonStyle = "-fx-font-size: 20px; -fx-background-color: #10263B; -fx-text-fill: white;";
+        String buttonStyle = ("-fx-font-size: 20px; -fx-background-color: #10263B; -fx-text-fill: white; -fx-font-family: 'Arial';");
         mentorBtn.setStyle(buttonStyle);
         menteeBtn.setStyle(buttonStyle);
         adminBtn.setStyle(buttonStyle);

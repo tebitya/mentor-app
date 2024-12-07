@@ -81,7 +81,7 @@ public class MenteeView extends VBox implements ManagedView {
 
         /* And add role label too to differentiate between different roles */
         Label roleLbl = new Label("MENTEE");
-        roleLbl.setStyle("-fx-text-fill: #273B4D; -fx-font-size: 16px; -fx-font-weight: bold;");
+        roleLbl.setStyle("-fx-text-fill: #273B4D; -fx-font-size: 16px; -fx-font-weight: bold; -fx-font-family: 'Arial';");
 
         /* Put in these two as string to avoid overcomplication */
         /* As used on Moodle */
@@ -94,7 +94,7 @@ public class MenteeView extends VBox implements ManagedView {
 
         /* Simple welcome message */
         Label welcome = new Label("Welcome ");
-        welcome.setStyle("-fx-font-size: 24px; -fx-text-fill: #10263B; -fx-font-weight: bold;");
+        welcome.setStyle("-fx-font-size: 24px; -fx-text-fill: #10263B; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         welcome.setPadding(new Insets(20));
 
 
@@ -110,13 +110,13 @@ public class MenteeView extends VBox implements ManagedView {
     private Label createLinkLabel(String page){
         /* Generic as of now so can be applied to all three */
         Label label = new Label(page);
-        label.setStyle("-fx-font-weight: bold; -fx-text-fill: #263A4D; -fx-font-size: 16px; -fx-cursor: hand;");
+        label.setStyle("-fx-font-weight: bold; -fx-text-fill: #263A4D; -fx-font-size: 16px; -fx-cursor: hand; -fx-font-family: 'Arial';");
         label.setPadding(new Insets(15));
 
         /* When user hovers on the link */
         /* Background colour changes to show interaction */
-        label.setOnMouseEntered(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #F3F4F5;-fx-font-size: 16px; -fx-text-fill: #273B4D; -fx-cursor: hand;"));
-        label.setOnMouseExited(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #FDFBF9; -fx-font-size: 16px; -fx-text-fill: #405162; -fx-cursor: hand;"));
+        label.setOnMouseEntered(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #F3F4F5;-fx-font-size: 16px; -fx-text-fill: #273B4D; -fx-cursor: hand; -fx-font-family: 'Arial';"));
+        label.setOnMouseExited(e -> label.setStyle("-fx-font-weight: bold; -fx-background-color: #FDFBF9; -fx-font-size: 16px; -fx-text-fill: #405162; -fx-cursor: hand; -fx-font-family: 'Arial';"));
 
         /* LOGIC TO BE IMPLEMENTED LATER */
         /* FOR NOW BARE BONES */
