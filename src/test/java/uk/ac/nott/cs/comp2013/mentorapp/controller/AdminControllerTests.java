@@ -78,18 +78,25 @@ public class AdminControllerTests {
     /* 3. Testing the function that lists mentors */
     @Test
     public void testListAllMentors() {
-        /* As above, only adding one mentor to list */
-        User mentor1 = mock(User.class);
+        Mentor mentor1 = mock(Mentor.class);
         when(mentor1.getRole()).thenReturn(UserRole.MENTOR);
-        when(mentor1.getUsername()).thenReturn("mentor1");
 
-        List<User> mockUsers = List.of(mentor1);
-        when(userRepo.selectAll()).thenReturn(mockUsers);
-        /* Calling the function to test it */
+        LocalDateTime start = LocalDateTime.now();
+        /* Testing with exact 6 months to ensure the mentor is included */
+        LocalDateTime end = start.plusMonths(8);
+
+        when(mentor1.getStartAvailability()).thenReturn(start);
+        when(mentor1.getEndAvailability()).thenReturn(end);
+
+        /* Selected from list */
+        when(userRepo.selectAll()).thenReturn(List.of(mentor1));
+
+        /* Function called here */
         List<String> mentors = adminController.listAllMentors();
 
-        assertEquals(1, mentors.size(), "Should only be 1 mentor");
-        assertTrue(mentors.contains("mentor1"), "Mentor1 should be in list");
+        assertEquals(1, mentors.size(), "Should return the mentor with 8 month availability");
+        assertTrue(mentors.contains(mentor1.getUsername()), "Mentor should be included in list");
+
     }
 
     /* 4. Testing the function that lists mentors with empty list */
