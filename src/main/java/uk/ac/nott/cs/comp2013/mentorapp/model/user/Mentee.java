@@ -4,16 +4,18 @@ public class Mentee implements User, HasCv {
 
   private UserRole role = UserRole.MENTEE;
   private String username, password, cvText;
+  private String supportRequest;
 
   public Mentee(String username, String password) {
-    this(username, password, "");
+    this(username, password, "","");
   }
 
-  public Mentee(String username, String password, String cvText) {
+  public Mentee(String username, String password, String cvText, String supportRequest) {
     this.username = username;
     this.password = password;
     this.cvText = cvText;
   }
+
   @Override
   public String getCvText() {
     return cvText;
