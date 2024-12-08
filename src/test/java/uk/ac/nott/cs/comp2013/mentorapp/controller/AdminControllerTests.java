@@ -1,7 +1,6 @@
 package uk.ac.nott.cs.comp2013.mentorapp.controller;
 
 import javafx.util.Pair;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -189,7 +188,7 @@ public class AdminControllerTests {
     }
 
 
-    /* 7. Testing the addPair() function */
+    /* 9. Testing the addPair() function */
     @Test
     public void testAddPair() {
         /* Goal is to make these two a pair */
@@ -201,7 +200,7 @@ public class AdminControllerTests {
     }
 
 
-    /* 8. Testing same function with multiple pairs */
+    /* 10. Testing same function with multiple pairs */
     @Test
     public void testAddPairMultiple() {
         /* Adding 3 pairs */
@@ -221,7 +220,7 @@ public class AdminControllerTests {
         assertEquals("mentor3", pairsResults.get(2).getValue(), "Third in pair (mentor) should be mentor3");
     }
 
-    /* 9. Testing the writeCSVfile function */
+    /* 11. Testing the writeCSVfile function */
     @Test
     public void testWritePairsToCSV() {
         adminController.addPair("mentee1", "mentor1");
@@ -230,6 +229,15 @@ public class AdminControllerTests {
         adminController.writePairsToCSV();
 
         assertEquals(2, pairsResults.size(), "Should have written 2 pairs");
+    }
+
+    /* 12. Testing the writeCSVFile function when no pairs */
+    @Test
+    public void testWritePairsToCSVNoPair() {
+        /* Calling function */
+        adminController.writePairsToCSV();
+
+        assertEquals(0, pairsResults.size(), "CSV should not contain any pairs if the pair list is empty");
     }
 
 }
