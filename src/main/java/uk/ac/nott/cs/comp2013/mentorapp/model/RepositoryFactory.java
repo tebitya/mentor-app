@@ -37,7 +37,7 @@ public class RepositoryFactory {
       try (InputStreamReader reader = new InputStreamReader(data)) {
         Iterable<CSVRecord> rows =
             CSVFormat.EXCEL.builder()
-                .setHeader()
+                .setHeader("username", "password", "role", "cvText", "startAvailability", "endAvailability", "supportRequest")
                 .setSkipHeaderRecord(true)
                 .build()
                 .parse(reader);
@@ -57,7 +57,7 @@ public class RepositoryFactory {
   private User userFromCsvRecord(CSVRecord record) {
     return switch (record.get("role")) {
       case "MENTEE" ->
-          new Mentee(record.get("username"), record.get("password"), record.get("cvText"));
+              new Mentee(record.get("username").trim(), record.get("password").trim(), record.get("cvText").trim(), record.get("supportRequest"));
       case "MENTOR" -> {
         Mentor m = new Mentor(record.get("username"), record.get("password"));
         if (record.get("startAvailability").isBlank() || record.get("endAvailability").isBlank()) {
