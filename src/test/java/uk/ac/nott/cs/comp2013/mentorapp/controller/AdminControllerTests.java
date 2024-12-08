@@ -1,6 +1,7 @@
 package uk.ac.nott.cs.comp2013.mentorapp.controller;
 
 import javafx.util.Pair;
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -143,6 +144,50 @@ public class AdminControllerTests {
 
         assertTrue(mentors.isEmpty(), "Should return no mentors");
     }
+
+    /* 7.Edge case - listing mentors with exactly 6 months */
+    @Test
+    public void testListAllMentorsExactSixMonths(){
+        Mentor mentor = mock(Mentor.class);
+        when(mentor.getRole()).thenReturn(UserRole.MENTOR);
+
+        LocalDateTime start = LocalDateTime.now();
+        /* Testing with exact 6 months to ensure the mentor is included */
+        LocalDateTime end = start.plusMonths(6);
+
+        when(mentor.getStartAvailability()).thenReturn(start);
+        when(mentor.getEndAvailability()).thenReturn(end);
+
+        /* Selected from list */
+        when(userRepo.selectAll()).thenReturn(List.of(mentor));
+
+        /* Function called here */
+        List<String> mentors = adminController.listAllMentors();
+
+        assertEquals(1, mentors.size(), "Should return the mentor with 6 month availability");
+        assertTrue(mentors.contains(mentor.getUsername()), "Mentor should be included in list");
+
+    }
+
+    /* 8. Testing mentors with missing availability */
+    @Test
+    public void testListAllMentorsMissingAvailability(){
+        Mentor mentor = mock(Mentor.class);
+        when(mentor.getRole()).thenReturn(UserRole.MENTOR);
+
+        /* These columns left empty for this mentor */
+        when(mentor.getStartAvailability()).thenReturn(null);
+        when(mentor.getEndAvailability()).thenReturn(null);
+
+        /* Selected from list */
+        when(userRepo.selectAll()).thenReturn(List.of(mentor));
+
+        /* Function called here */
+        List<String> mentors = adminController.listAllMentors();
+
+        assertTrue(mentors.isEmpty(), "Mentors without availability should not be included in list");
+    }
+
 
     /* 7. Testing the addPair() function */
     @Test
