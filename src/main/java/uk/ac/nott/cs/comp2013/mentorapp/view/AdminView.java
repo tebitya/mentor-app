@@ -32,8 +32,6 @@ public class AdminView extends VBox implements ManagedView {
     private final AdminController controller;
     private Label errorLbl;
 
-    private LoginView loginView;
-
 
     public AdminView(AdminController controller) {
         this.controller = controller;
