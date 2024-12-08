@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+
 import uk.ac.nott.cs.comp2013.mentorapp.model.Repository;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.Mentor;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
@@ -15,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class AdminControllerTests {
 
@@ -244,7 +244,14 @@ public class AdminControllerTests {
         assertEquals("mentor3", pairsResults.get(2).getValue(), "Third in pair (mentor) should be mentor3");
     }
 
-    /* 12. Testing the writeCSVfile function */
+    /* 12. With null pairs */
+    @Test
+    public void testAddPairNull() {
+        adminController.addPair(null, null);
+        assertEquals(1, pairsResults.size(), "Null pair should not be included");
+    }
+
+    /* 13. Testing the writeCSVfile function */
     @Test
     public void testWritePairsToCSV() throws IOException {
         adminController.addPair("mentee1", "mentor1");
@@ -255,7 +262,7 @@ public class AdminControllerTests {
         assertEquals(2, pairsResults.size(), "Should have written 2 pairs");
     }
 
-    /* 13. Testing the writeCSVFile function when no pairs */
+    /* 14. Testing the writeCSVFile function when no pairs */
     @Test
     public void testWritePairsToCSVNoPair() throws IOException {
         /* Calling function */
@@ -264,14 +271,12 @@ public class AdminControllerTests {
         assertEquals(0, pairsResults.size(), "CSV should not contain any pairs if the pair list is empty");
     }
 
-    /* 14. No mentees in repository */
+    /* 15. No mentees in repository */
     @Test
     public void testListAllMenteesEmpty() {
         when(userRepo.selectAll()).thenReturn(new ArrayList<>());
         List<String> mentees = adminController.listAllMentees();
         assertTrue(mentees.isEmpty(), "Mentee list should be empty");
     }
-
-
 
 }
