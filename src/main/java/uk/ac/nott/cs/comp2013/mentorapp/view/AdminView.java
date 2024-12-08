@@ -16,6 +16,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.util.Pair;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.AdminController;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class AdminView extends VBox implements ManagedView {
@@ -195,7 +196,13 @@ public class AdminView extends VBox implements ManagedView {
         confirmBtn.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-background-color: #10263B; -fx-text-fill: white;-fx-cursor: hand;-fx-font-family: 'Arial';");
         confirmBtn.setPrefWidth(100);
         /* CREATE NEW FUNCTION WHAT HAPPENS ONCE BUTTON CLICKED */
-        confirmBtn.setOnAction(e -> handleConfirmBtnClick());
+        confirmBtn.setOnAction(e -> {
+            try {
+                handleConfirmBtnClick();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
         /* Adding all parts of pairing interface to the VBox */
         pairingSection.getChildren().addAll(pairingRow, scrollBar, confirmBtn);
@@ -207,7 +214,7 @@ public class AdminView extends VBox implements ManagedView {
         getChildren().addAll(navBar, welcome,pairingSection);
     }
 
-    private void handleConfirmBtnClick() {
+    private void handleConfirmBtnClick() throws IOException {
         Label confirmationLbl = new Label("Pairing confirmed. Notifications will be sent to selected mentees and mentors.");
         /* Similar styling to error messages */
         confirmationLbl.setStyle("-fx-background-color: #D4EDDA; -fx-text-fill: #155724; -fx-font-size: 16px; -fx-font-family: 'Arial';");

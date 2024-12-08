@@ -9,6 +9,7 @@ import uk.ac.nott.cs.comp2013.mentorapp.model.user.Mentor;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.UserRole;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -194,8 +195,24 @@ public class AdminControllerTests {
         assertTrue(mentors.isEmpty(), "Mentors without availability should not be included in list");
     }
 
+    /* 9. Testing even just missing start availability */
+    @Test
+    public void testListAllMentorsMissingStart() {
+        Mentor mentor = mock(Mentor.class);
+        when(mentor.getRole()).thenReturn(UserRole.MENTOR);
+        when(mentor.getStartAvailability()).thenReturn(null);
+        when(mentor.getEndAvailability()).thenReturn(LocalDateTime.now().plusMonths(7));
 
-    /* 9. Testing the addPair() function */
+        List<User> mockUsers = List.of(mentor);
+        when(userRepo.selectAll()).thenReturn(mockUsers);
+
+        List<String> mentors = adminController.listAllMentors();
+        assertTrue(mentors.isEmpty(), "Mentor with missing start availability should not be included");
+    }
+
+
+
+    /* 10. Testing the addPair() function */
     @Test
     public void testAddPair() {
         /* Goal is to make these two a pair */
@@ -207,7 +224,7 @@ public class AdminControllerTests {
     }
 
 
-    /* 10. Testing same function with multiple pairs */
+    /* 11. Testing same function with multiple pairs */
     @Test
     public void testAddPairMultiple() {
         /* Adding 3 pairs */
@@ -227,9 +244,9 @@ public class AdminControllerTests {
         assertEquals("mentor3", pairsResults.get(2).getValue(), "Third in pair (mentor) should be mentor3");
     }
 
-    /* 11. Testing the writeCSVfile function */
+    /* 12. Testing the writeCSVfile function */
     @Test
-    public void testWritePairsToCSV() {
+    public void testWritePairsToCSV() throws IOException {
         adminController.addPair("mentee1", "mentor1");
         adminController.addPair("mentee2", "mentor2");
         /* Calling function */
@@ -238,13 +255,23 @@ public class AdminControllerTests {
         assertEquals(2, pairsResults.size(), "Should have written 2 pairs");
     }
 
-    /* 12. Testing the writeCSVFile function when no pairs */
+    /* 13. Testing the writeCSVFile function when no pairs */
     @Test
-    public void testWritePairsToCSVNoPair() {
+    public void testWritePairsToCSVNoPair() throws IOException {
         /* Calling function */
         adminController.writePairsToCSV();
 
         assertEquals(0, pairsResults.size(), "CSV should not contain any pairs if the pair list is empty");
     }
+
+    /* 14. No mentees in repository */
+    @Test
+    public void testListAllMenteesEmpty() {
+        when(userRepo.selectAll()).thenReturn(new ArrayList<>());
+        List<String> mentees = adminController.listAllMentees();
+        assertTrue(mentees.isEmpty(), "Mentee list should be empty");
+    }
+
+
 
 }

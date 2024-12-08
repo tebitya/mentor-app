@@ -74,7 +74,7 @@ public class AdminController {
     }
 
 
-    public void writePairsToCSV() {
+    public void writePairsToCSV() throws IOException {
         /* Function to permanently record the pairs made into a csv file */
         /* Creating the new file in specified location */
         String directoryPath = "src/main/pairing";
@@ -98,8 +98,6 @@ public class AdminController {
             writer.write("Total number of pairs: " + totalPairs);
             writer.newLine();
 
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

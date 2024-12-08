@@ -7,11 +7,4 @@ public class MenteeController {
 
     private static User username;
 
-
-
-    /* Function to retrieve selected role */
-    public static User getUsername() {
-        return username;
-    }
-
 }
