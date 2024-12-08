@@ -70,7 +70,7 @@ public class MentorApp extends Application {
     /* Set title to windows */
     stage.setTitle("UoN Mentor App");
     /* Changed to have the role selection screen first */
-    vm.setStageView(ViewManager.MENTOR_VIEW);
+    vm.setStageView(ViewManager.ACTORS_VIEW);
     stage.show();
   }
 
