@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import uk.ac.nott.cs.comp2013.mentorapp.controller.LoginController;
-import uk.ac.nott.cs.comp2013.mentorapp.model.user.User;
 import uk.ac.nott.cs.comp2013.mentorapp.model.user.UserRole;
 
 import java.util.Objects;
@@ -27,6 +26,10 @@ public class LoginView extends VBox implements ManagedView {
   protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
   private TextField txtUsername, txtPassword;
 
+  /**
+   * Constructs the LoginView class .
+   * @param controller - handles the login operation .
+   */
   public LoginView(LoginController controller) {
     this.controller = controller;
     this.onViewChange = new SimpleObjectProperty<>("onViewChange", null);
@@ -43,6 +46,9 @@ public class LoginView extends VBox implements ManagedView {
     buildView();
   }
 
+  /**
+   * Builds the UI.
+   */
   private void buildView() {
     /* VBox to hold all components */
     /* Allows border to be created around entire login form */
@@ -175,7 +181,9 @@ public class LoginView extends VBox implements ManagedView {
 
   }
 
-  /* To clear inputs after entered */
+  /**
+   * To clear inputs after entered
+   */
   public void clearInputs() {
     txtUsername.clear();
     txtPassword.clear();

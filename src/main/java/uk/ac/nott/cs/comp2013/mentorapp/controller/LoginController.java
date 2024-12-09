@@ -11,26 +11,48 @@ public class LoginController {
   private static UserRole role;
   private static UserRole selectedRole;
 
+  /**
+   * Constructs new LoginController .
+   * @param model - connection to repository to retrieve data .
+   */
   public LoginController(Repository<User, String> model) {
     this.repo = model;
   }
 
   /* New getter to get the role of the user */
-  /* Used for the actorsview file */
+
+  /**
+   * Gets role of user .
+   * @return - returns userRole of the current user .
+   */
   public static UserRole getRole() {
     return role;
   }
 
-  /* New function to store the selected role */
+  /**
+   * New function to store the selected role
+   * @param role - setting the user's role .
+   */
   public static void setSelectedRole(UserRole role) {
     selectedRole = role;
   }
 
-  /* Function to retrieve selected role */
+  /**
+   * Function to retrieve selected role
+   * @return - getting the role user selected .
+   */
   public static UserRole getSelectedRole() {
     return selectedRole;
   }
 
+  /**
+   * Handles the logic for the login.
+   * Takes in both the username and password, and validates against the CSV
+   * to either allow user to login or send an error message .
+   * @param username - username entered by user
+   * @param password - password entered by user
+   * @return - either true or false based on progress / success of login .
+   */
   public boolean onLoginClick(String username, String password) {
     Optional<User> user = repo.selectById(username);
     if (user.isEmpty()) {

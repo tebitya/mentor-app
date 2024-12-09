@@ -16,13 +16,22 @@ import uk.ac.nott.cs.comp2013.mentorapp.model.user.UserRole;
 
 import java.util.Objects;
 
+/**
+ * Represents the roles view UI that all users see on opening the app.
+ * User selects one of three roles.
+ */
 public class ActorsView extends VBox implements ManagedView {
 
-    // Property to handle view changes
+    /**
+     *  Property to handle view changes
+     *  */
     protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
 
+    /**
+     * Constructs ActorsView.
+     * @param controller - handles the role selection logic .
+     */
     public ActorsView(ActorsController controller) {
-        // Initialize the view change handler
         this.onViewChange = new SimpleObjectProperty<>("onViewChange", null);
 
         /* Making the window larger */
@@ -99,6 +108,10 @@ public class ActorsView extends VBox implements ManagedView {
         getChildren().addAll(roleBox);
     }
 
+    /**
+     * Handles the role selection and navigates to the appropriate page.
+     * @param selectedRole - the role the user selected.
+     */
     /* Function to save the role the user selected */
     private void roleSelection(UserRole selectedRole) {
 
@@ -111,11 +124,19 @@ public class ActorsView extends VBox implements ManagedView {
         }
     }
 
+    /**
+     * Gets the event handler so pages can be changed.
+     * @return - current event handler.
+     */
     @Override
     public EventHandler<? super ViewChangeEvent> getOnViewChange() {
         return onViewChange.get();
     }
 
+    /**
+     * Sets the event handler.
+     * @param eventHandler - the event handler
+     */
     @Override
     public void setOnViewChange(EventHandler<? super ViewChangeEvent> eventHandler) {
         onViewChange.set(eventHandler);
