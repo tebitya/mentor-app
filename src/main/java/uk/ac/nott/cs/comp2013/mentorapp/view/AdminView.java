@@ -19,18 +19,31 @@ import uk.ac.nott.cs.comp2013.mentorapp.controller.AdminController;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * AdminView is a view class that displays the administrator's user interface of the mentor app.
+ * It includes the same dashboard at the top of the page as is present for both mentee and mentor.
+ * Its UI components include combo-boxes, tables, buttons, and labels, to display lists of mentee and mentors, as well as
+ * pairing and confirming pairs.
+ */
+
+
 public class AdminView extends VBox implements ManagedView {
 
-    /* Property to handle view changes */
+    /** Property to handle view changes */
     protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
 
-    /* Drop-downs to display mentee and mentor names */
+    /** Drop-downs to display mentee and mentor names */
     private final ComboBox<String> menteeList = new ComboBox<>();
     private final ComboBox<String> mentorList = new ComboBox<>();
     private final TableView<Pair<String, String>> pairsTable = new TableView<>();
     private final ObservableList<Pair<String, String>> pairsResults = FXCollections.observableArrayList();
     private final AdminController controller;
     private Label errorLbl;
+
+    /**
+     * Constructs AdminView object using the AdminController.
+     * @param controller - This controller interacts with the view.
+     */
 
 
     public AdminView(AdminController controller) {
@@ -45,12 +58,21 @@ public class AdminView extends VBox implements ManagedView {
         loadDropdownData();
     }
 
+
+    /**
+     * Loads the list of mentees and mentors into their separate combo-boxes.
+     */
     private void loadDropdownData() {
         /* Getting the list from the method in admin controller */
         menteeList.setItems(FXCollections.observableArrayList(controller.listAllMentees()));
         mentorList.setItems(FXCollections.observableArrayList(controller.listAllMentors()));
     }
 
+    /**
+     * Builds the UI for the admin view.
+     * Includes the navigation bar, pairing interface- complete with its buttons-
+     * and the pairs table.
+     */
     private void buildView() {
         /* Creating hbox for the navigation bar up top */
         /* Similar to moodle */
@@ -212,6 +234,11 @@ public class AdminView extends VBox implements ManagedView {
         getChildren().addAll(navBar, welcome,pairingSection);
     }
 
+    /**
+     * Handles when the confirm button is clicked.
+     * Tells controller to write the confirmed pairs to the CSV.
+     * @throws IOException - if I/O exception whilst writing pairs to the CSV.
+     */
     private void handleConfirmBtnClick() throws IOException {
         Label confirmationLbl = new Label("Pairing confirmed. Notifications will be sent to selected mentees and mentors.");
         /* Similar styling to error messages */
@@ -226,7 +253,11 @@ public class AdminView extends VBox implements ManagedView {
         controller.writePairsToCSV();
     }
 
-
+    /**
+     * Handles when the pair button is clicked.
+     * Alerts admin of any error if criteria is not followed.
+     * Adds pairs to the table and removes them from combo-boxes.
+     */
     private void handlePairBtnClick() {
         /* Function that occurs once admin has pressed the button labelled 'pair' */
         String selectedMentee = menteeList.getValue();
@@ -262,7 +293,11 @@ public class AdminView extends VBox implements ManagedView {
 
     }
 
-
+    /**
+     * Creates a label that user clicks to logout.
+     * @param page - The user navigates back to login page once clicked.
+     * @return - The label.
+     */
     private Label createLinkLabel(String page){
         /* Generic as of now so can be applied to all three */
         Label label = new Label(page);

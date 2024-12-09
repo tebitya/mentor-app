@@ -15,17 +15,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
 
+/**
+ * Controller for admin of the mentor app.
+ * This class handles the logic for managing the mentors and mentees.
+ * System lists them, admin adds pairs, and confirmed pairs are written to a CSV file.
+ */
 public class AdminController {
 
     private final Repository<User, String> userRepo;
     private final List<Pair<String, String>> pairsResults;
 
+    /**
+     * Constructs an AdminController with the repository and pair results.
+     * @param model - The repository of users of the application.
+     * @param pairsResults - The list of confirmed pairs.
+     */
     /* Using same params as login */
     public AdminController(Repository<User, String> model, List<Pair<String, String>> pairsResults) {
         this.userRepo = model;
         this.pairsResults = pairsResults;
     }
 
+    /**
+     * Returns list of mentee usernames to be displayed on UI.
+     * @return - list of mentee usernames.
+     */
     /* To return the names needed for displaying in drop down menus*/
     /* For MENTEES */
     public List<String> listAllMentees(){
@@ -40,7 +54,10 @@ public class AdminController {
         return menteeList;
     }
 
-
+    /**
+     * Returns list of mentor usernames to be displayed on UI.
+     * @return - list of mentor usernames.
+     */
     /* For MENTORS  */
     public List<String> listAllMentors(){
         List<String> mentorList = new ArrayList<>();
@@ -65,7 +82,11 @@ public class AdminController {
         return mentorList;
     }
 
-    /* Now move onto specifics in use case */
+    /**
+     * Adds a new pair to the list of pairs.
+     * @param mentee - username of mentee .
+     * @param mentor - username of mentor .
+     */
     /* Adding the pair created */
     public void addPair(String mentee, String mentor){
         Pair<String, String> pair = new Pair<>(mentee, mentor);
@@ -73,7 +94,11 @@ public class AdminController {
 
     }
 
-
+    /**
+     * Writes the confirmed pairs to a CSV file.
+     * The file is stored in the path "src/main/pairing".
+     * @throws IOException - if I/O error occurs when writing to the file .
+     */
     public void writePairsToCSV() throws IOException {
         /* Function to permanently record the pairs made into a csv file */
         /* Creating the new file in specified location */

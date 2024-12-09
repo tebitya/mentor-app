@@ -16,12 +16,22 @@ import uk.ac.nott.cs.comp2013.mentorapp.controller.MenteeController;
 
 import java.util.Objects;
 
+/**
+ * MenteeView is a view class that displays the mentee's interface.
+ * It includes the same dashboard as mentor and admin.
+ * Its UI includes combo-boxes, buttons, and labels to allow mentee to select and submit support requests.
+ */
+
 public class MenteeView extends VBox implements ManagedView {
 
+    /** Property to handle view changes */
     protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
     private Label progressLbl;
 
-
+    /**
+     * Constructs MenteeView object.
+     * @param controller - Controller interacts with view .
+     */
 
     public MenteeView(MenteeController controller) {
         this.onViewChange = new SimpleObjectProperty<>("onViewChange", null);
@@ -32,6 +42,10 @@ public class MenteeView extends VBox implements ManagedView {
         buildView();
     }
 
+    /**
+     * Builds UI for mentee view.
+     * Includes dashboard, and support request interface.
+     */
     private void buildView(){
         /* Creating hbox for the navigation bar up top */
         /* Similar to moodle */
@@ -140,6 +154,11 @@ public class MenteeView extends VBox implements ManagedView {
 
     }
 
+    /**
+     * Handles when confirm button is clicked.
+     * Tests & returns error if criteria is not met.
+     * @param supportTypes - the support type chosen by the mentee.
+     */
     private void handleConfirmBtnClick(ComboBox<String> supportTypes) {
         /* For when user clicks the confirmation button */
         /* Firstly removing the error message if it is already present */
@@ -165,8 +184,11 @@ public class MenteeView extends VBox implements ManagedView {
         getChildren().add(progressLbl);
     }
 
-
-    /* Separate function for creating labels in navigation bar */
+    /**
+     * Creates a label that user clicks to logout.
+     * @param page - The user navigates back to login page once clicked.
+     * @return - The label.
+     */
     private Label createLinkLabel(String page){
         /* Generic as of now so can be applied to all three */
         Label label = new Label(page);

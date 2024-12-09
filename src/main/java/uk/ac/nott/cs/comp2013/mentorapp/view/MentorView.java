@@ -17,10 +17,21 @@ import uk.ac.nott.cs.comp2013.mentorapp.controller.MentorController;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * MentorView is a view class that displays the mentor's interface.
+ * Includes same dashboard as mentee and admin.
+ * UI includes data pickers, buttons, and labels.
+ */
 public class MentorView extends VBox implements ManagedView {
 
+    /** Property to handle view changes */
     protected ObjectProperty<EventHandler<? super ViewChangeEvent>> onViewChange;
     private Label progressLbl;
+
+    /**
+     * Constructs MentorView object.
+     * @param controller - Controller interacts with view .
+     */
 
     public MentorView(MentorController controller) {
 
@@ -32,6 +43,10 @@ public class MentorView extends VBox implements ManagedView {
         buildView();
     }
 
+    /**
+     * Builds UI for mentor view.
+     * Includes dashboard, and setting availability interface.
+     */
     private void buildView() {
         /* Creating hbox for the navigation bar up top */
         /* Similar to moodle */
@@ -136,6 +151,12 @@ public class MentorView extends VBox implements ManagedView {
         getChildren().addAll(navBar, welcome, description, setAvailability);
     }
 
+    /**
+     * Handles when confirm button is clicked.
+     * Tests & returns error if criteria is not met.
+     * @param startAvail - date chosen as start date .
+     * @param endAvail - date chosen as end date.
+     */
     private void handleConfirmBtnClick(DatePicker startAvail, DatePicker endAvail) {
         /* When confirm button is clicked */
         /* EXACT same as menteeview */
@@ -164,7 +185,11 @@ public class MentorView extends VBox implements ManagedView {
 
     }
 
-    /* Separate function for creating labels in navigation bar */
+    /**
+     * Creates a label that user clicks to logout.
+     * @param page - The user navigates back to login page once clicked.
+     * @return - The label.
+     */
     private Label createLinkLabel(String page){
         /* Generic as of now so can be applied to all three */
         Label label = new Label(page);
